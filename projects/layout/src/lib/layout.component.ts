@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-layout',
-  template: ` <p>layout works!</p> `,
-  styles: [],
+  templateUrl: './layout.component.html',
+  styleUrls: ['./layout.component.less'],
 })
 export class LayoutComponent implements OnInit {
+  isCollapsed: boolean = false;
   constructor() {}
 
   ngOnInit(): void {}
