@@ -1,6 +1,41 @@
 <div class="layout">
   <nz-layout>
-    <nz-header>Header</nz-header>
+    <nz-header>
+      <div class="header-left">
+        <div class="logo">
+          <ng-container *nzStringTemplateOutlet="logo">
+            <img [src]="logo" alt="logo" />
+          </ng-container>
+        </div>
+        <div class="title">
+          <ng-container *nzStringTemplateOutlet="title">
+            {{ title }}
+          </ng-container>
+        </div>
+        <ng-content select="[name=header-left]"></ng-content>
+      </div>
+      <div class="header-right">
+        <div *ngIf="userInfo" style="margin-left: 14px">
+          <nz-avatar
+            [nzSrc]="
+              userInfo.avatar ||
+              '//img.alicdn.com/tfs/TB1SZ04CDtYBeNjy1XdXXXXyVXa-24-24.png'
+            "
+            nzSize="small"
+          ></nz-avatar>
+          <span nz-dropdown [nzDropdownMenu]="menu" style="margin-left: 8px">
+            {{ userInfo.username }}
+            <i nz-icon nzType="down"></i>
+          </span>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="onLogout()">退出登录</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+        <ng-content select="[name=header-right]"></ng-content>
+      </div>
+    </nz-header>
     <nz-layout class="layout-main">
       <nz-sider
         nzTheme="light"

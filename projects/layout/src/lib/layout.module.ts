@@ -10,6 +10,10 @@ import {
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+
 const icons: IconDefinition[] = [MenuFoldOutline, MenuUnfoldOutline];
 
 @NgModule({
@@ -20,6 +24,9 @@ const icons: IconDefinition[] = [MenuFoldOutline, MenuUnfoldOutline];
     NzMenuModule,
     BrowserAnimationsModule,
     RouterModule.forChild([]),
+    NzOutletModule,
+    NzAvatarModule,
+    NzDropDownModule,
   ],
   exports: [LayoutComponent],
 })
