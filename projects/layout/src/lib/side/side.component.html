@@ -1,0 +1,65 @@
+<ng-template #icon let-menu="menu">
+  <ng-container *ngIf="!menu.parentId; else empty">
+    <ng-container
+      *ngIf="
+        menu.resIcon && menu.resIcon.split('-')[0] === 'icon';
+        else iconTpl
+      "
+    >
+      <i nz-icon [nzIconfont]="menu.resIcon"></i>
+    </ng-container>
+    <ng-template #iconTpl>
+      <i nz-icon [nzType]="menu.resIcon"></i>
+    </ng-template>
+  </ng-container>
+  <ng-template #empty>
+    <span class="empty"></span>
+  </ng-template>
+</ng-template>
+
+<div class="side-wrapper">
+  <div class="menu-wrapper">
+    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <ng-container
+        *ngTemplateOutlet="menuTpl; context: { menus: menus }"
+      ></ng-container>
+      <ng-template #menuTpl let-menus="menus">
+        <ng-container *ngFor="let menu of menus">
+          <li *ngIf="!menu.childrenMenus" nz-menu-item nzMatchRouter>
+            <ng-container
+              *ngTemplateOutlet="icon; context: { menu: menu }"
+            ></ng-container>
+            <a
+              *ngIf="!isCollapsed || menu.parentId"
+              [routerLink]="menu.resValue"
+              >{{ menu.displayName }}</a
+            >
+          </li>
+          <li *ngIf="menu.childrenMenus" nz-submenu [nzTitle]="title">
+            <ng-template #title>
+              <ng-container
+                *ngTemplateOutlet="icon; context: { menu: menu }"
+              ></ng-container>
+              <span>{{ menu.displayName }}</span>
+            </ng-template>
+            <ul>
+              <ng-container
+                *ngTemplateOutlet="
+                  menuTpl;
+                  context: { menus: menu.childrenMenus }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </div>
+  <div class="trigger" (click)="onToggle()">
+    <i
+      nz-icon
+      [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+      style="font-size: 20px"
+    ></i>
+  </div>
+</div>

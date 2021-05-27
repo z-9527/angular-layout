@@ -6,6 +6,7 @@ import {
   Output,
   TemplateRef,
 } from '@angular/core';
+import { IMenu } from './side/side.component';
 
 type UserInfo = {
   username?: string;
@@ -21,6 +22,7 @@ export class LayoutComponent implements OnInit {
   @Input() logo?: string | TemplateRef<any>; //header左边的logo
   @Input() title?: string | TemplateRef<any>; //header左边的title
   @Input() userInfo?: UserInfo;
+  @Input() menus?: IMenu[] = [];
 
   @Output() logout: EventEmitter<any> = new EventEmitter();
 

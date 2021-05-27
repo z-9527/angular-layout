@@ -13,11 +13,12 @@ import { RouterModule } from '@angular/router';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { SideComponent } from './side/side.component';
 
 const icons: IconDefinition[] = [MenuFoldOutline, MenuUnfoldOutline];
 
 @NgModule({
-  declarations: [LayoutComponent],
+  declarations: [LayoutComponent, SideComponent],
   imports: [
     NzLayoutModule,
     NzIconModule.forRoot(icons),

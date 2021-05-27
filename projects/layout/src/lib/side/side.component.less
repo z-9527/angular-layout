@@ -1,0 +1,28 @@
+.side-wrapper {
+  height: calc(100vh - 47px);
+  display: flex;
+  flex-direction: column;
+
+  .menu-wrapper {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .ant-menu,
+  .ant-menu-item a {
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .empty{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+  }
+
+  .trigger {
+    height: 49px;
+    line-height: 49px;
+    padding-left: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+  }
+}
