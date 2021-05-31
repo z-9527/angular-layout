@@ -14,6 +14,21 @@ const data = [
         resValue: '/home/shop',
         securityId: 'Ip_3J-fn8KKWa6A2O0IhyA',
         sortId: 10,
+        childrenMenus: [
+          {
+            appCode: 'saba',
+            deepLength: 0,
+            displayName: '店铺管理2',
+            leaf: false,
+            parentId: 6000003226,
+            resIcon: 'deployment-unit',
+            resName: '店铺管理2',
+            resType: 'MENU',
+            resValue: '/home/shop/test2',
+            securityId: 'Ip_3J-fn8KKWa6A2O0IhyA',
+            sortId: 10,
+          },
+        ],
       },
       {
         appCode: 'saba',

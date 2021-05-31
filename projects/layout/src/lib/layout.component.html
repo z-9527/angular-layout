@@ -29,7 +29,15 @@
           </span>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item (click)="onLogout()">退出登录</li>
+              <li
+                *ngFor="let item of dropdownMenus"
+                nz-menu-item
+                (click)="item.click()"
+              >
+                <ng-container *nzStringTemplateOutlet="item.text">
+                  {{ item.text }}
+                </ng-container>
+              </li>
             </ul>
           </nz-dropdown-menu>
         </div>

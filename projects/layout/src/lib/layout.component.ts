@@ -1,16 +1,14 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  TemplateRef,
-} from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { IMenu } from './side/side.component';
 
 type UserInfo = {
   username?: string;
   avatar?: string;
+};
+
+type DropdownMenu = {
+  text?: string | TemplateRef<any>;
+  click?: () => {};
 };
 
 @Component({
@@ -23,15 +21,10 @@ export class LayoutComponent implements OnInit {
   @Input() title?: string | TemplateRef<any>; //header左边的title
   @Input() userInfo?: UserInfo;
   @Input() menus?: IMenu[] = [];
-
-  @Output() logout: EventEmitter<any> = new EventEmitter();
+  @Input() dropdownMenus?: DropdownMenu[] = [];
 
   isCollapsed: boolean = false;
   constructor() {}
 
   ngOnInit(): void {}
-
-  onLogout() {
-    this.logout.emit();
-  }
 }

@@ -35,7 +35,12 @@
               >{{ menu.displayName }}</a
             >
           </li>
-          <li *ngIf="menu.childrenMenus" nz-submenu [nzTitle]="title">
+          <li
+            *ngIf="menu.childrenMenus"
+            nz-submenu
+            [nzTitle]="title"
+            [nzOpen]="openKeys.includes(menu.securityId)"
+          >
             <ng-template #title>
               <ng-container
                 *ngTemplateOutlet="icon; context: { menu: menu }"
