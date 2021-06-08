@@ -13,6 +13,11 @@
     "paths": {
       "layout": [
         "projects/layout/src/public-api"
+      ],
+      "table": [
+        "projects/table/src/public-api",
+        "dist/table/table",
+        "dist/table"
       ]
     },
     "target": "es2015",
