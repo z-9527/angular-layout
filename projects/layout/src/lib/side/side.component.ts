@@ -1,11 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 export interface IMenu {
   displayName: string; // '工单管理';
   resName: string; // 'caseList';
   resValue: string; // '/caseList';
 
-  resIcon?: string; // nzType: 'smile';
+  resIcon?: string; // nzType: 'smile'  nzIconfont: 'icon-smile';
   childrenMenus?: IMenu[]; // [];
   parentId?: number; // 886;
   resType?: string; // 'MENU';
@@ -17,7 +24,7 @@ export interface IMenu {
   templateUrl: './side.component.html',
   styleUrls: ['./side.component.less'],
 })
-export class SideComponent implements OnInit {
+export class SideComponent implements OnChanges {
   @Input() isCollapsed: boolean;
   @Input() menus: IMenu[] = [];
   @Output() toggleCollapsed: EventEmitter<any> = new EventEmitter();
@@ -31,12 +38,15 @@ export class SideComponent implements OnInit {
       .getAttribute('href');
   }
 
-  ngOnInit(): void {
-    // 刷新页面时打开当前路由菜单
-    const pathname = location.pathname;
-    const result = [];
-    this.findKeyByPathname(this.menus, pathname, result);
-    this.openKeys = result.slice();
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes: ', changes);
+    if (changes.menus) {
+      // 刷新页面时打开当前路由菜单
+      const pathname = location.pathname;
+      const result = [];
+      this.findKeyByPathname(this.menus, pathname, result);
+      this.openKeys = result.slice();
+    }
   }
 
   onToggle() {
