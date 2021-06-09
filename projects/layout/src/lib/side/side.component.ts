@@ -39,7 +39,6 @@ export class SideComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes: ', changes);
     if (changes.menus) {
       // 刷新页面时打开当前路由菜单
       const pathname = location.pathname;
