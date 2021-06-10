@@ -37,6 +37,26 @@ export const columns: INzColumn[] = [
     key: 'address',
   },
   {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
     title: '操作',
     dataIndex: 'action',
     fixed: 'right',

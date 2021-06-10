@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { INzColumn } from 'table';
-import { columns, dataSource } from './mock';
+import { columns } from './mock';
 
 @Component({
   selector: 'app-table-demo',
@@ -9,10 +9,20 @@ import { columns, dataSource } from './mock';
 })
 export class TableDemoComponent implements OnInit {
   columns: INzColumn[] = columns;
-  data = dataSource;
+  data = [];
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.data = new Array(100).fill(0).map((_, index) => {
+      return {
+        id: index,
+        name: `Edward King ${index}`,
+        age: 32,
+        address: `London, Park Lane no. ${index}`,
+        disabled: index % 2 === 0,
+      };
+    });
+  }
 
   onTest(record, index) {
     console.log('index: ', index);

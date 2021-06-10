@@ -58,7 +58,7 @@
           (toggleCollapsed)="isCollapsed = !isCollapsed"
         ></lib-layout-side>
       </nz-sider>
-      <nz-content>
+      <nz-content style="overflow: auto">
         <router-outlet></router-outlet>
         <ng-content select="[name=content]"></ng-content>
       </nz-content>

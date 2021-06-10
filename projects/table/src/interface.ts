@@ -13,3 +13,18 @@ export interface INzColumn extends Record<string, any> {
   fixed?: 'right' | 'left';
   align?: 'right' | 'left' | 'center';
 }
+
+export interface INzPagination {
+  pageIndex?: number;
+  pageSize?: number;
+  showQuickJumper?: boolean;
+  showSizeChanger?: boolean;
+  pageSizeOptions?: number[];
+  pageIndexChange?: (_current: number) => unknown;
+  pageSizeChange?: (_current: number) => unknown;
+  currentPageDataChange?: (_currentData: any[]) => unknown;
+}
+
+export interface INzRowSelection {
+  fixed?: boolean;
+}

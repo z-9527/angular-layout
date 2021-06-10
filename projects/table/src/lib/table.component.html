@@ -1,4 +1,4 @@
-<div>
+<div class="table-wrapper">
   <nz-table
     #basicTable
     [nzData]="nzData"
@@ -8,9 +8,30 @@
     [nzTitle]="nzTitle"
     [nzFooter]="nzFooter"
     [nzNoResult]="nzNoResult"
+    [nzShowPagination]="nzShowPagination"
+    [nzFrontPagination]="nzFrontPagination"
+    [nzTotal]="nzTotal"
+    [nzPageIndex]="nzPagination.pageIndex || 1"
+    [nzPageSize]="nzPagination.pageSize || 10"
+    [nzShowQuickJumper]="nzPagination.showQuickJumper !== false"
+    [nzShowSizeChanger]="nzPagination.showSizeChanger !== false"
+    [nzShowTotal]="totalTemplate"
+    (nzPageIndexChange)="pageIndexChange($event)"
+    (nzPageSizeChange)="pageSizeChange($event)"
+    (nzCurrentPageDataChange)="currentPageDataChange($event)"
   >
     <thead>
       <tr>
+        <ng-container *ngIf="nzShowRowSelection">
+          <th
+            [width]="'50px'"
+            [nzLeft]="nzRowSelection.fixed !== false"
+            [nzChecked]="checked"
+            [nzIndeterminate]="indeterminate"
+            (nzCheckedChange)="onAllChecked($event)"
+          ></th>
+        </ng-container>
+
         <ng-container *ngFor="let column of nzColumns">
           <th
             [nzRight]="column.fixed === 'right'"
@@ -32,6 +53,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of basicTable.data; let i = index">
+        <ng-container *ngIf="nzShowRowSelection">
+          <td
+            [nzLeft]="nzRowSelection.fixed !== false"
+            [nzChecked]="selectedRowKeys.has(getRowKeyValue(data))"
+            [nzDisabled]="data.disabled"
+            (nzCheckedChange)="onItemChecked(getRowKeyValue(data), $event)"
+          ></td>
+        </ng-container>
         <ng-container *ngFor="let item of nzColumns">
           <td
             [class]="item.className"
@@ -87,3 +116,5 @@
     </div>
   </ng-container>
 </ng-template>
+
+<ng-template #totalTemplate let-total> 共 {{ total }} 条</ng-template>
