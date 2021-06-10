@@ -10,6 +10,14 @@ import { columns } from './mock';
 export class TableDemoComponent implements OnInit {
   columns: INzColumn[] = columns;
   data = [];
+  nzRowSelection = {
+    onChange: (...a) => {
+      console.log('onChange', a);
+    },
+    onSelect: (...a) => {
+      console.log('onSelect', a);
+    },
+  };
   constructor() {}
 
   ngOnInit(): void {

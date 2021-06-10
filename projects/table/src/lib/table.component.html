@@ -1,4 +1,8 @@
 <div class="table-wrapper">
+  <div class="tip" *ngIf="selectedRowKeys.size">
+    已选 {{ selectedRowKeys.size }} 项
+  </div>
+
   <nz-table
     #basicTable
     [nzData]="nzData"
@@ -58,7 +62,9 @@
             [nzLeft]="nzRowSelection.fixed !== false"
             [nzChecked]="selectedRowKeys.has(getRowKeyValue(data))"
             [nzDisabled]="data.disabled"
-            (nzCheckedChange)="onItemChecked(getRowKeyValue(data), $event)"
+            (nzCheckedChange)="
+              onItemChecked(getRowKeyValue(data), $event, data)
+            "
           ></td>
         </ng-container>
         <ng-container *ngFor="let item of nzColumns">

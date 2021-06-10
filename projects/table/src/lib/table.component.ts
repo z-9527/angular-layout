@@ -67,6 +67,7 @@ export class TableComponent implements OnInit {
         this.updateCheckedSet(rowKey, checked);
       });
     this.refreshCheckedStatus();
+    this.nzRowSelection.onChange(Array.from(this.selectedRowKeys));
   }
 
   updateCheckedSet(rowKey, checked: boolean): void {
@@ -77,9 +78,15 @@ export class TableComponent implements OnInit {
     }
   }
 
-  onItemChecked(rowKey, checked) {
+  onItemChecked(rowKey, checked, data) {
     this.updateCheckedSet(rowKey, checked);
     this.refreshCheckedStatus();
+    this.nzRowSelection.onSelect &&
+      this.nzRowSelection.onSelect(
+        data,
+        checked,
+        Array.from(this.selectedRowKeys)
+      );
   }
 
   refreshCheckedStatus(): void {

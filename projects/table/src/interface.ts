@@ -27,4 +27,10 @@ export interface INzPagination {
 
 export interface INzRowSelection {
   fixed?: boolean;
+  onChange?: (_selectedRowKeys: any[]) => unknown;
+  onSelect?: (
+    _record: any,
+    _selected: boolean,
+    _selectedRowKeys: any[]
+  ) => unknown;
 }
