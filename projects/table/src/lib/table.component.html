@@ -1,1 +1,89 @@
-<div>table</div>
+<div>
+  <nz-table
+    #basicTable
+    [nzData]="nzData"
+    [nzScroll]="nzScroll"
+    [nzBordered]="nzBordered"
+    [nzOuterBordered]="nzOuterBordered"
+    [nzTitle]="nzTitle"
+    [nzFooter]="nzFooter"
+    [nzNoResult]="nzNoResult"
+  >
+    <thead>
+      <tr>
+        <ng-container *ngFor="let column of nzColumns">
+          <th
+            [nzRight]="column.fixed === 'right'"
+            [nzLeft]="column.fixed === 'left'"
+            [nzAlign]="column.align"
+          >
+            <ng-container
+              *nzStringTemplateOutlet="
+                nzTemplateRefs[column.titleRef] ||
+                column.titleRef ||
+                column.title
+              "
+            >
+              {{ column.title }}
+            </ng-container>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let i = index">
+        <ng-container *ngFor="let item of nzColumns">
+          <td
+            [class]="item.className"
+            [nzRight]="item.fixed === 'right'"
+            [nzLeft]="item.fixed === 'left'"
+            [nzAlign]="item.align"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                td;
+                context: {
+                  column: item,
+                  data: data,
+                  index: i,
+                  text: item.format
+                    ? item.format(data[item.dataIndex], data, i)
+                    : data[item.dataIndex]
+                }
+              "
+            ></ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<ng-template
+  #td
+  let-data="data"
+  let-text="text"
+  let-index="index"
+  let-column="column"
+>
+  <ng-container
+    *nzStringTemplateOutlet="
+      nzTemplateRefs[column.ref];
+      context: {
+        record: data,
+        $implicit: data,
+        index: index,
+        text: text
+      }
+    "
+  >
+    <div
+      class="ellipsis"
+      [style.width]="column.width"
+      nz-tooltip
+      [nzTooltipTitle]="text"
+    >
+      {{ text }}
+    </div>
+  </ng-container>
+</ng-template>

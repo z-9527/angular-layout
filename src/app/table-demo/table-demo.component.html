@@ -1,3 +1,12 @@
-<div>
-  <lib-table></lib-table>
+<div style="padding: 12px">
+  <lib-table
+    [nzColumns]="columns"
+    [nzData]="data"
+    [nzTemplateRefs]="{ test: test, action: action }"
+  ></lib-table>
+
+  <ng-template #test> fdafafaf </ng-template>
+  <ng-template #action let-record let-index="index">
+    <button (click)="onTest(record, index)">flkdajflkjaf</button>
+  </ng-template>
 </div>

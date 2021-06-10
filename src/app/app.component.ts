@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
   getMenus = () => {
     setTimeout(() => {
       this.menus = data;
-      console.log('data: ', data);
     }, 1000);
   };
   logout() {
