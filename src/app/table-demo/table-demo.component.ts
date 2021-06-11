@@ -22,6 +22,13 @@ export class TableDemoComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    fetch('/api/list2')
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log('res: ', res);
+      });
     this.data = new Array(100).fill(0).map((_, index) => {
       return {
         id: index,
