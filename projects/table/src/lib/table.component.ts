@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+} from '@angular/core';
 import {
   INzColumn,
   INzPagination,
@@ -6,14 +13,17 @@ import {
   StringTemplateRef,
 } from '../interface';
 
+export type SizeType = 'middle' | 'small' | 'default';
+
 @Component({
   selector: 'lib-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.less'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   @Input() nzColumns: INzColumn[] = [];
   @Input() nzData?: Record<string, any>[];
+  @Input() nzSize?: SizeType;
   @Input() nzTemplateRefs?: Record<string, TemplateRef<any>>;
   @Input() nzScroll?: { x?: string; y?: string };
   @Input() nzBordered?: boolean;
@@ -28,14 +38,23 @@ export class TableComponent implements OnInit {
   @Input() nzPagination?: INzPagination = {};
   @Input() nzShowRowSelection?: boolean = true;
   @Input() nzRowSelection?: INzRowSelection = {};
+  @Input() nzHeader?: StringTemplateRef;
 
+  _size: SizeType = 'default';
   listOfCurrentPageData: any[] = [];
   checked = false;
   indeterminate = false;
   selectedRowKeys = new Set<number | string>();
-  constructor() {}
 
   ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const key in changes) {
+      if (key === 'nzSize') {
+        this._size = changes['nzSize'].currentValue;
+      }
+    }
+  }
 
   pageIndexChange(index) {
     this.nzPagination.pageIndexChange &&
@@ -100,5 +119,9 @@ export class TableComponent implements OnInit {
       listOfEnabledData.some((item) =>
         this.selectedRowKeys.has(this.getRowKeyValue(item))
       ) && !this.checked;
+  }
+
+  toggleSize(size) {
+    this._size = size;
   }
 }

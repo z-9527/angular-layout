@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { INzColumn } from 'table';
-import { columns } from './mock';
+import { columns, dataSource } from './mock';
 
 @Component({
   selector: 'app-table-demo',
@@ -9,7 +9,8 @@ import { columns } from './mock';
 })
 export class TableDemoComponent implements OnInit {
   columns: INzColumn[] = columns;
-  data = [];
+  data: any = dataSource;
+  size = 'small';
   nzRowSelection = {
     onChange: (...a) => {
       console.log('onChange', a);

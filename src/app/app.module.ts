@@ -11,6 +11,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
+// eslint-disable-next-line no-unused-vars
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
   (key) => antDesignIcons[key]
 );
@@ -21,7 +22,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
-    NzIconModule.forRoot(icons),
+    // NzIconModule.forRoot(icons),
+    NzIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

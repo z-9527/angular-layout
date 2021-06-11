@@ -21,7 +21,7 @@ const icons: IconDefinition[] = [MenuFoldOutline, MenuUnfoldOutline];
   declarations: [LayoutComponent, SideComponent],
   imports: [
     NzLayoutModule,
-    NzIconModule.forRoot(icons),
+    NzIconModule.forChild(icons),
     NzMenuModule,
     BrowserAnimationsModule,
     RouterModule.forChild([]),

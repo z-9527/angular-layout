@@ -5,11 +5,12 @@
 
   <nz-table
     #basicTable
+    [nzSize]="_size"
     [nzData]="nzData"
     [nzScroll]="nzScroll"
     [nzBordered]="nzBordered"
     [nzOuterBordered]="nzOuterBordered"
-    [nzTitle]="nzTitle"
+    [nzTitle]="header"
     [nzFooter]="nzFooter"
     [nzNoResult]="nzNoResult"
     [nzShowPagination]="nzShowPagination"
@@ -20,6 +21,7 @@
     [nzShowQuickJumper]="nzPagination.showQuickJumper !== false"
     [nzShowSizeChanger]="nzPagination.showSizeChanger !== false"
     [nzShowTotal]="totalTemplate"
+    [nzPaginationType]="_size"
     (nzPageIndexChange)="pageIndexChange($event)"
     (nzPageSizeChange)="pageSizeChange($event)"
     (nzCurrentPageDataChange)="currentPageDataChange($event)"
@@ -93,6 +95,20 @@
     </tbody>
   </nz-table>
 </div>
+
+<ng-template #header>
+  <div class="header-box">
+    <ng-container *nzStringTemplateOutlet="nzTitle">
+      <div class="title">{{ nzTitle }}</div>
+    </ng-container>
+    <div class="header-right">
+      <ng-container *nzStringTemplateOutlet="nzHeader">
+        {{ nzHeader }}
+      </ng-container>
+      <lib-tooltip (toggleSize)="toggleSize($event)"></lib-tooltip>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template
   #td
