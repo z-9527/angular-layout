@@ -1,19 +1,22 @@
 <div style="padding: 12px">
   <lib-table
+    #myTable
     [nzColumns]="columns"
     [nzData]="data"
     [nzTemplateRefs]="{ test: test, action: action }"
     [nzScroll]="{ x: '120%' }"
     nzRowKey="id"
-    [nzRowSelection]="nzRowSelection"
+    [nzRowSelection]="{
+      selectedRowKeys: selectedRowKeys,
+      onChange: onSelectChange
+    }"
     [nzTitle]="'表格标题2'"
     [nzHeader]="header"
   ></lib-table>
 
   <ng-template #test> fdafafaf </ng-template>
-  <ng-template #action let-record let-index="index">
-    <button (click)="onTest(record, index)">flkdajflkjaf</button>
-  </ng-template>
+  <ng-template #action let-record let-index="index"> </ng-template>
 </div>
-
-<ng-template #header> fdlakfj </ng-template>
+<ng-template #header>
+  <button nz-button nzType="primary" (click)="onClear()">清空勾选</button>
+</ng-template>

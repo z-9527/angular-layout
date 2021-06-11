@@ -1,6 +1,6 @@
 <div [ngClass]="{ 'table-wrapper': true, fullscreen: fullscreen }">
-  <!-- <div class="tip" *ngIf="selectedRowKeys.size">
-    已选 {{ selectedRowKeys.size }} 项
+  <!-- <div class="tip" *ngIf="_selectedRowKeys.size">
+    已选 {{ _selectedRowKeys.size }} 项
   </div> -->
 
   <nz-table
@@ -62,7 +62,7 @@
         <ng-container *ngIf="nzShowRowSelection">
           <td
             [nzLeft]="nzRowSelection.fixed !== false"
-            [nzChecked]="selectedRowKeys.has(getRowKeyValue(data))"
+            [nzChecked]="_selectedRowKeys.has(getRowKeyValue(data))"
             [nzDisabled]="data.disabled"
             (nzCheckedChange)="
               onItemChecked(getRowKeyValue(data), $event, data)

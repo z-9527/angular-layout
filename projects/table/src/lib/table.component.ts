@@ -44,15 +44,21 @@ export class TableComponent implements OnInit, OnChanges {
   listOfCurrentPageData: any[] = [];
   checked = false;
   indeterminate = false;
-  selectedRowKeys = new Set<number | string>();
+  _selectedRowKeys = new Set<number | string>();
   fullscreen = false;
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes: ', changes);
     for (const key in changes) {
+      const field = changes[key];
       if (key === 'nzSize') {
-        this._size = changes['nzSize'].currentValue;
+        this._size = field.currentValue;
+      }
+      if (key === 'nzRowSelection' && field.currentValue.selectedRowKeys) {
+        this._selectedRowKeys = new Set(field.currentValue.selectedRowKeys);
+        this.refreshCheckedStatus();
       }
     }
   }
@@ -87,14 +93,15 @@ export class TableComponent implements OnInit, OnChanges {
         this.updateCheckedSet(rowKey, checked);
       });
     this.refreshCheckedStatus();
-    this.nzRowSelection.onChange(Array.from(this.selectedRowKeys));
+    this.nzRowSelection.onChange &&
+      this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
   }
 
   updateCheckedSet(rowKey, checked: boolean): void {
     if (checked) {
-      this.selectedRowKeys.add(rowKey);
+      this._selectedRowKeys.add(rowKey);
     } else {
-      this.selectedRowKeys.delete(rowKey);
+      this._selectedRowKeys.delete(rowKey);
     }
   }
 
@@ -105,8 +112,10 @@ export class TableComponent implements OnInit, OnChanges {
       this.nzRowSelection.onSelect(
         data,
         checked,
-        Array.from(this.selectedRowKeys)
+        Array.from(this._selectedRowKeys)
       );
+    this.nzRowSelection.onChange &&
+      this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
   }
 
   refreshCheckedStatus(): void {
@@ -114,11 +123,11 @@ export class TableComponent implements OnInit, OnChanges {
       ({ disabled }) => !disabled
     );
     this.checked = listOfEnabledData.every((item) =>
-      this.selectedRowKeys.has(this.getRowKeyValue(item))
+      this._selectedRowKeys.has(this.getRowKeyValue(item))
     );
     this.indeterminate =
       listOfEnabledData.some((item) =>
-        this.selectedRowKeys.has(this.getRowKeyValue(item))
+        this._selectedRowKeys.has(this.getRowKeyValue(item))
       ) && !this.checked;
   }
 
