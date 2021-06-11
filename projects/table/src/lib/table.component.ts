@@ -45,6 +45,7 @@ export class TableComponent implements OnInit, OnChanges {
   checked = false;
   indeterminate = false;
   selectedRowKeys = new Set<number | string>();
+  fullscreen = false;
 
   ngOnInit(): void {}
 
@@ -121,7 +122,10 @@ export class TableComponent implements OnInit, OnChanges {
       ) && !this.checked;
   }
 
-  toggleSize(size) {
+  changeSize(size) {
     this._size = size;
+  }
+  toggleFullScreen(fullscreen) {
+    this.fullscreen = fullscreen;
   }
 }

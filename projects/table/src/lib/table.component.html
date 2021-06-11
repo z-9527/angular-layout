@@ -1,4 +1,4 @@
-<div class="table-wrapper">
+<div [ngClass]="{ 'table-wrapper': true, fullscreen: fullscreen }">
   <div class="tip" *ngIf="selectedRowKeys.size">
     已选 {{ selectedRowKeys.size }} 项
   </div>
@@ -105,7 +105,10 @@
       <ng-container *nzStringTemplateOutlet="nzHeader">
         {{ nzHeader }}
       </ng-container>
-      <lib-tooltip (toggleSize)="toggleSize($event)"></lib-tooltip>
+      <lib-tooltip
+        (changeSize)="changeSize($event)"
+        (toggleFullScreen)="toggleFullScreen($event)"
+      ></lib-tooltip>
     </div>
   </div>
 </ng-template>
@@ -129,7 +132,7 @@
     "
   >
     <div
-      class="ellipsis"
+      class="table-ellipsis"
       [style.width]="column.width"
       nz-tooltip
       [nzTooltipTitle]="text"

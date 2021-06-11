@@ -5,13 +5,13 @@
     </span>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu nzSelectable>
-        <li nz-menu-item (click)="changeSize('default')">
+        <li nz-menu-item (click)="_changeSize('default')">
           <span>默认</span>
         </li>
-        <li nz-menu-item (click)="changeSize('middle')">
+        <li nz-menu-item (click)="_changeSize('middle')">
           <span>中等</span>
         </li>
-        <li nz-menu-item (click)="changeSize('small')">
+        <li nz-menu-item (click)="_changeSize('small')">
           <span>紧凑</span>
         </li>
       </ul>
@@ -23,7 +23,7 @@
   <li class="item">
     <i nz-icon nzType="setting" class="action-icon"></i>
   </li>
-  <li class="item">
+  <li class="item" (click)="_toggleFullScreen()">
     <i
       nz-icon
       [nzType]="fullscreen ? 'fullscreen-exit' : 'fullscreen'"

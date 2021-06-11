@@ -38,9 +38,21 @@
     display: flex;
     align-items: center;
   }
+
+  &.fullscreen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 12px;
+    box-shadow: 0 0 10px 0 rgba(153, 153, 153, 0.35);
+    overflow-y: auto;
+    z-index: 999;
+  }
 }
 
-.ellipsis {
+.table-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
