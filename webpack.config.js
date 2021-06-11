@@ -21,6 +21,7 @@ function getFilesSync(filePath, result) {
 
 module.exports = {
   devServer: {
+    contentBase: path.join(__dirname, "public"),
     before(app) {
       const apiMap = {};
       getFilesSync("mock", apiMap);
