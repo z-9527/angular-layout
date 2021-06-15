@@ -1,11 +1,10 @@
-<div style="padding: 12px">
+<!-- <div style="padding: 12px">
   <lib-table
     #myTable
     [nzColumns]="columns"
     [nzData]="data"
     [nzTemplateRefs]="{ test: test, action: action }"
     [nzScroll]="{ x: '120%' }"
-    nzRowKey="id"
     [nzRowSelection]="{
       selectedRowKeys: selectedRowKeys,
       onChange: onSelectChange
@@ -19,4 +18,18 @@
 </div>
 <ng-template #header>
   <button nz-button nzType="primary" (click)="onClear()">清空勾选</button>
-</ng-template>
+</ng-template> -->
+
+<div style="padding: 12px">
+  <lib-table
+    #myTable2
+    [nzColumns]="columns"
+    [nzData]="data2"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzScroll]="{ x: '120%' }"
+    [nzTotal]="total"
+    [nzTitle]="'表格标题2'"
+    (nzQueryParams)="onQueryParamsChange($event)"
+  ></lib-table>
+</div>

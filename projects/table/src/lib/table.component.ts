@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   TemplateRef,
 } from '@angular/core';
@@ -12,6 +14,7 @@ import {
   INzRowSelection,
   StringTemplateRef,
 } from '../interface';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 export type SizeType = 'middle' | 'small' | 'default';
 
@@ -24,14 +27,15 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() nzColumns: INzColumn[] = [];
   @Input() nzData?: Record<string, any>[];
   @Input() nzSize?: SizeType;
-  @Input() nzTemplateRefs?: Record<string, TemplateRef<any>>;
+  @Input() nzLoading?: boolean = false;
+  @Input() nzTemplateRefs?: Record<string, TemplateRef<any>> = {};
   @Input() nzScroll?: { x?: string; y?: string };
   @Input() nzBordered?: boolean;
   @Input() nzOuterBordered?: boolean;
   @Input() nzTitle?: StringTemplateRef;
   @Input() nzFooter?: StringTemplateRef;
   @Input() nzNoResult?: StringTemplateRef;
-  @Input() nzRowKey?: string | ((_record: any) => string) = 'key';
+  @Input() nzRowKey?: string | ((_record: any) => string) = 'id'; // 很重要，设置checkbox的值，默认为id
   @Input() nzTotal?: number;
   @Input() nzShowPagination?: boolean = true;
   @Input() nzFrontPagination?: boolean = true;
@@ -39,6 +43,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() nzShowRowSelection?: boolean = true;
   @Input() nzRowSelection?: INzRowSelection = {};
   @Input() nzHeader?: StringTemplateRef;
+  @Output() nzQueryParams?: EventEmitter<NzTableQueryParams> =
+    new EventEmitter();
 
   _size: SizeType = 'default';
   listOfCurrentPageData: any[] = [];
@@ -50,7 +56,7 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes: ', changes);
+    // console.log('changes: ', changes);
     for (const key in changes) {
       const field = changes[key];
       if (key === 'nzSize') {
@@ -122,9 +128,10 @@ export class TableComponent implements OnInit, OnChanges {
     const listOfEnabledData = this.listOfCurrentPageData.filter(
       ({ disabled }) => !disabled
     );
-    this.checked = listOfEnabledData.every((item) =>
-      this._selectedRowKeys.has(this.getRowKeyValue(item))
-    );
+    this.checked =
+      listOfEnabledData.every((item) =>
+        this._selectedRowKeys.has(this.getRowKeyValue(item))
+      ) && listOfEnabledData.length > 0;
     this.indeterminate =
       listOfEnabledData.some((item) =>
         this._selectedRowKeys.has(this.getRowKeyValue(item))
@@ -136,5 +143,9 @@ export class TableComponent implements OnInit, OnChanges {
   }
   toggleFullScreen(fullscreen) {
     this.fullscreen = fullscreen;
+  }
+
+  onQueryParams(params: NzTableQueryParams) {
+    this.nzQueryParams.emit(params);
   }
 }

@@ -6,6 +6,7 @@
   <nz-table
     #basicTable
     [nzSize]="_size"
+    [nzLoading]="nzLoading"
     [nzData]="nzData"
     [nzScroll]="nzScroll"
     [nzBordered]="nzBordered"
@@ -18,6 +19,9 @@
     [nzTotal]="nzTotal"
     [nzPageIndex]="nzPagination.pageIndex || 1"
     [nzPageSize]="nzPagination.pageSize || 10"
+    [nzPageSizeOptions]="
+      nzPagination.pageSizeOptions || [5, 10, 20, 30, 40, 50]
+    "
     [nzShowQuickJumper]="nzPagination.showQuickJumper !== false"
     [nzShowSizeChanger]="nzPagination.showSizeChanger !== false"
     [nzShowTotal]="totalTemplate"
@@ -25,6 +29,7 @@
     (nzPageIndexChange)="pageIndexChange($event)"
     (nzPageSizeChange)="pageSizeChange($event)"
     (nzCurrentPageDataChange)="currentPageDataChange($event)"
+    (nzQueryParams)="onQueryParams($event)"
   >
     <thead>
       <tr>

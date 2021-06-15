@@ -21,7 +21,6 @@ export const columns: INzColumn[] = [
     title: '姓名',
     dataIndex: 'name',
     key: 'name',
-    // ref: 'test',
     fixed: 'left',
   },
   {
@@ -39,10 +38,11 @@ export const columns: INzColumn[] = [
   {
     title: 'column1',
     dataIndex: 'column',
+    ref: 'test',
   },
   {
     title: 'column1',
-    dataIndex: 'column',
+    dataIndex: 'number',
   },
   {
     title: 'column1',
