@@ -20,7 +20,7 @@
   <button nz-button nzType="primary" (click)="onClear()">清空勾选</button>
 </ng-template> -->
 
-<div style="padding: 12px">
+<!-- <div style="padding: 12px">
   <lib-table
     #myTable2
     [nzColumns]="columns"
@@ -31,5 +31,15 @@
     [nzTotal]="total"
     [nzTitle]="'表格标题2'"
     (nzQueryParams)="onQueryParamsChange($event)"
+  ></lib-table>
+</div> -->
+
+<div style="padding: 12px">
+  <lib-table
+    #myTable3
+    [nzColumns]="columns"
+    [nzScroll]="{ x: '120%' }"
+    [nzTitle]="'表格标题3'"
+    [nzQueryList]="queryList"
   ></lib-table>
 </div>

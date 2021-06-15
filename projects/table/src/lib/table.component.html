@@ -6,8 +6,8 @@
   <nz-table
     #basicTable
     [nzSize]="_size"
-    [nzLoading]="nzLoading"
-    [nzData]="nzData"
+    [nzLoading]="_loading"
+    [nzData]="_data"
     [nzScroll]="nzScroll"
     [nzBordered]="nzBordered"
     [nzOuterBordered]="nzOuterBordered"
@@ -15,8 +15,8 @@
     [nzFooter]="nzFooter"
     [nzNoResult]="nzNoResult"
     [nzShowPagination]="nzShowPagination"
-    [nzFrontPagination]="nzFrontPagination"
-    [nzTotal]="nzTotal"
+    [nzFrontPagination]="!nzQueryList && nzFrontPagination"
+    [nzTotal]="_total"
     [nzPageIndex]="nzPagination.pageIndex || 1"
     [nzPageSize]="nzPagination.pageSize || 10"
     [nzPageSizeOptions]="
@@ -113,6 +113,7 @@
       <lib-tooltip
         (changeSize)="changeSize($event)"
         (toggleFullScreen)="toggleFullScreen($event)"
+        (refresh)="refresh()"
       ></lib-tooltip>
     </div>
   </div>

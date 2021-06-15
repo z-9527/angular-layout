@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
   TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import {
   INzColumn,
@@ -15,6 +16,7 @@ import {
   StringTemplateRef,
 } from '../interface';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { Observable } from 'rxjs';
 
 export type SizeType = 'middle' | 'small' | 'default';
 
@@ -24,6 +26,7 @@ export type SizeType = 'middle' | 'small' | 'default';
   styleUrls: ['./table.component.less'],
 })
 export class TableComponent implements OnInit, OnChanges {
+  @ViewChild('basicTable') basicTable;
   @Input() nzColumns: INzColumn[] = [];
   @Input() nzData?: Record<string, any>[];
   @Input() nzSize?: SizeType;
@@ -43,14 +46,20 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() nzShowRowSelection?: boolean = true;
   @Input() nzRowSelection?: INzRowSelection = {};
   @Input() nzHeader?: StringTemplateRef;
+  @Input() nzQueryList?: (
+    _param: NzTableQueryParams
+  ) => Observable<{ total: number; data: any[] }>; // 自定义请求的分页函数，必须返回Observable的对象
   @Output() nzQueryParams?: EventEmitter<NzTableQueryParams> =
     new EventEmitter();
 
   _size: SizeType = 'default';
+  _selectedRowKeys = new Set<number | string>();
+  _total: number = 0;
+  _data: Record<string, any>[] = [];
+  _loading = false;
   listOfCurrentPageData: any[] = [];
   checked = false;
   indeterminate = false;
-  _selectedRowKeys = new Set<number | string>();
   fullscreen = false;
 
   ngOnInit(): void {}
@@ -65,6 +74,15 @@ export class TableComponent implements OnInit, OnChanges {
       if (key === 'nzRowSelection' && field.currentValue.selectedRowKeys) {
         this._selectedRowKeys = new Set(field.currentValue.selectedRowKeys);
         this.refreshCheckedStatus();
+      }
+      if (key === 'nzData') {
+        this._data = field.currentValue || [];
+      }
+      if (key === 'nzTotal') {
+        this._total = field.currentValue;
+      }
+      if (key === 'nzLoading') {
+        this._loading = field.currentValue;
       }
     }
   }
@@ -147,5 +165,38 @@ export class TableComponent implements OnInit, OnChanges {
 
   onQueryParams(params: NzTableQueryParams) {
     this.nzQueryParams.emit(params);
+    this._queryList(params);
+  }
+  _queryList = (params: NzTableQueryParams) => {
+    if (typeof this.nzQueryList !== 'function') {
+      return;
+    }
+    this._loading = true;
+    this.nzQueryList(params).subscribe({
+      next: (res) => {
+        this._total = res.total;
+        this._data = res.data;
+        this._loading = false;
+      },
+      error: (_err) => {
+        this._loading = false;
+      },
+    });
+  };
+  // 刷新数据
+  refresh() {
+    const { nzPageIndex, nzPageSize } = this.basicTable;
+    this._queryList({
+      pageIndex: nzPageIndex,
+      pageSize: nzPageSize,
+      sort: undefined,
+      filter: undefined,
+    });
+    console.log(this.basicTable);
+  }
+  // 刷新数据并清空勾选（一般在勾选完成操作后调用）
+  reload() {
+    this.refresh();
+    this._selectedRowKeys.clear();
   }
 }

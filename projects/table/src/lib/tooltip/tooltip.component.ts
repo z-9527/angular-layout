@@ -8,6 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class TooltipComponent implements OnInit {
   @Output() changeSize: EventEmitter<any> = new EventEmitter();
   @Output() toggleFullScreen: EventEmitter<any> = new EventEmitter();
+  @Output() refresh: EventEmitter<any> = new EventEmitter();
   fullscreen = false;
   constructor() {}
 
@@ -19,5 +20,8 @@ export class TooltipComponent implements OnInit {
   _toggleFullScreen() {
     this.fullscreen = !this.fullscreen;
     this.toggleFullScreen.emit(this.fullscreen);
+  }
+  _refresh() {
+    this.refresh.emit();
   }
 }

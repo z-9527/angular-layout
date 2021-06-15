@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { INzColumn } from 'table';
 import { columns, dataSource } from './mock';
 import Mock from 'mockjs';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 const data = new Array(100).fill(0).map((_, index) => {
   return {
@@ -84,5 +86,22 @@ export class TableDemoComponent implements OnInit {
       this.total = res.total;
       this.data2 = res.data;
     }, 1500);
+  }
+
+  queryList(param) {
+    console.log('param: ', param);
+    const { pageSize, pageIndex } = param;
+    const startIndex = (pageIndex - 1) * pageSize + 1;
+    const res = Mock.mock({
+      total: 200,
+      [`data|${param.pageSize}`]: [
+        {
+          'id|+1': startIndex,
+          name: '@name',
+          'number|+1': startIndex,
+        },
+      ],
+    });
+    return of(res).pipe(delay(1500));
   }
 }
