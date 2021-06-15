@@ -48,6 +48,16 @@
             [nzRight]="column.fixed === 'right'"
             [nzLeft]="column.fixed === 'left'"
             [nzAlign]="column.align"
+            [nzShowSort]="column.showSort"
+            [nzSortFn]="column.sortFn"
+            [nzSortDirections]="column.sortDirections"
+            [nzSortOrder]="column.nzSortOrder"
+            [nzSortOrderChange]="column.sortOrderChange"
+            [nzShowFilter]="column.showFilter"
+            [nzFilterFn]="column.filterFn"
+            [nzFilters]="column.filters"
+            [nzFilterMultiple]="column.nzFilterMultiple"
+            [nzFilterChange]="column.nzFilterChange"
           >
             <ng-container
               *nzStringTemplateOutlet="

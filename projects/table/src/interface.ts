@@ -1,4 +1,11 @@
 import { TemplateRef } from '@angular/core';
+import {
+  NzTableFilterFn,
+  NzTableFilterList,
+  NzTableFilterValue,
+  NzTableSortFn,
+  NzTableSortOrder,
+} from 'ng-zorro-antd/table/src/table.types';
 
 export type StringTemplateRef = string | TemplateRef<any>;
 
@@ -12,6 +19,18 @@ export interface INzColumn extends Record<string, any> {
   width?: string;
   fixed?: 'right' | 'left';
   align?: 'right' | 'left' | 'center';
+
+  showSort?: boolean;
+  sortFn?: NzTableSortFn;
+  sortDirections?: NzTableSortOrder[];
+  nzSortOrder?: NzTableSortOrder;
+  sortOrderChange?: (_order: NzTableSortOrder) => unknown;
+
+  showFilter?: boolean;
+  filterFn?: NzTableFilterFn;
+  filters?: NzTableFilterList[];
+  nzFilterMultiple?: boolean;
+  nzFilterChange?: (_value: NzTableFilterValue) => unknown;
 }
 
 export interface INzPagination {

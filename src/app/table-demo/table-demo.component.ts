@@ -6,14 +6,16 @@ import Mock from 'mockjs';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-const data = new Array(100).fill(0).map((_, index) => {
-  return {
-    id: index,
-    name: `Edward King ${index}`,
-    age: 32,
-    address: `London, Park Lane no. ${index}`,
-    disabled: index % 2 === 0,
-  };
+const data = Mock.mock({
+  'array|100': [
+    {
+      id: '@ID',
+      name: `@NAME`,
+      age: 32,
+      address: `@county(true)`,
+      disabled: '@boolean',
+    },
+  ],
 });
 
 @Component({
@@ -35,7 +37,7 @@ export class TableDemoComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.data = data;
+    this.data = data.array;
   }
 
   onSelectChange = (selectedRowKeys) => {
@@ -81,7 +83,6 @@ export class TableDemoComponent implements OnInit {
           },
         ],
       });
-      console.log('res222: ', res);
       this.loading = false;
       this.total = res.total;
       this.data2 = res.data;
@@ -89,7 +90,6 @@ export class TableDemoComponent implements OnInit {
   }
 
   queryList(param) {
-    console.log('param: ', param);
     const { pageSize, pageIndex } = param;
     const startIndex = (pageIndex - 1) * pageSize + 1;
     const res = Mock.mock({

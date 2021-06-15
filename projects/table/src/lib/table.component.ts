@@ -192,7 +192,6 @@ export class TableComponent implements OnInit, OnChanges {
       sort: undefined,
       filter: undefined,
     });
-    console.log(this.basicTable);
   }
   // 刷新数据并清空勾选（一般在勾选完成操作后调用）
   reload() {

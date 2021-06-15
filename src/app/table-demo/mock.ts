@@ -22,6 +22,10 @@ export const columns: INzColumn[] = [
     dataIndex: 'name',
     key: 'name',
     fixed: 'left',
+    showSort: true,
+    sortFn: (a, b) => {
+      return a.name.localeCompare(b.name);
+    },
   },
   {
     title: '年龄',
@@ -36,13 +40,17 @@ export const columns: INzColumn[] = [
     key: 'address',
   },
   {
-    title: 'column1',
-    dataIndex: 'column',
-    ref: 'test',
+    title: 'index',
+    dataIndex: 'number',
+    showSort: true,
+    sortFn: (a, b) => {
+      return b.number - a.number;
+    },
   },
   {
     title: 'column1',
-    dataIndex: 'number',
+    dataIndex: 'column',
+    ref: 'test',
   },
   {
     title: 'column1',
