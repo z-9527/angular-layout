@@ -102,6 +102,6 @@ export class TableDemoComponent implements OnInit {
         },
       ],
     });
-    return of(res).pipe(delay(1500));
+    return of(res).pipe(delay(0));
   }
 }

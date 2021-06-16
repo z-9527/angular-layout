@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { INzColumn } from '../../interface';
 
 @Component({
   selector: 'lib-tooltip',
@@ -6,6 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./tooltip.component.less'],
 })
 export class TooltipComponent implements OnInit {
+  @Input() nzColumns: INzColumn[] = [];
   @Output() changeSize: EventEmitter<any> = new EventEmitter();
   @Output() toggleFullScreen: EventEmitter<any> = new EventEmitter();
   @Output() refresh: EventEmitter<any> = new EventEmitter();

@@ -1,0 +1,74 @@
+.setting-icon {
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.setting-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.content {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.45);
+  line-height: 18px;
+  padding: 0 20px;
+}
+
+.drag-list-item {
+  height: 34px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 0 20px;
+  cursor: move;
+
+  &:hover {
+    background: rgba(16, 142, 233, 0.1);
+  }
+
+  .label {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    cursor: move;
+  }
+
+  .action-icon {
+    color: #1492ff;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+}
+
+::ng-deep {
+  .table-setting-popover {
+    .ant-popover-inner-content {
+      padding: 12px 0;
+    }
+  }
+}
+
+.cdk-drag-preview {
+  background: rgba(16, 142, 233, 0.1);
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-list.cdk-drop-list-dragging .drag-list-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.item-custom-placeholder {
+  height: 34px;
+  border: 1px dashed #1492ff;
+  cursor: move;
+}

@@ -1,0 +1,68 @@
+<div>
+  <i
+    nz-icon
+    nzType="setting"
+    class="setting-icon"
+    nz-popover
+    [nzPopoverTitle]="header"
+    [nzPopoverContent]="content"
+    nzPopoverTrigger="click"
+    [nzPopoverOverlayClassName]="'table-setting-popover'"
+  ></i>
+</div>
+
+<ng-template #header>
+  <div class="setting-header">
+    <span>列展示</span>
+    <button nz-button nzType="link" nzSize="small" [style.padding]="'0px'">
+      重置
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #content>
+  <div class="content">
+    <ng-container
+      *ngTemplateOutlet="
+        dropList;
+        context: { title: '固定在左侧', list: columns }
+      "
+    ></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #dropList let-title="title" let-type="title" let-list="list">
+  <div>
+    <div class="title">{{ title }}</div>
+    <div cdkDropList [cdkDropListData]="list" class="drag-list">
+      <div *ngFor="let item of list" cdkDrag class="drag-list-item">
+        <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
+        <div>
+          <label nz-checkbox [(ngModel)]="checked" class="label">
+            {{ item.title }}
+          </label>
+        </div>
+        <div>
+          <i
+            class="action-icon"
+            nz-icon
+            nzType="vertical-align-top"
+            nzTheme="outline"
+            nz-tooltip
+            nzTooltipTitle="固定在列首"
+            nzTooltipPlacement="top"
+          ></i>
+          <i
+            class="action-icon"
+            nz-icon
+            nzType="vertical-align-bottom"
+            nzTheme="outline"
+            nz-tooltip
+            nzTooltipTitle="固定在列尾"
+            nzTooltipPlacement="top"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

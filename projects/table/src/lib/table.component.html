@@ -121,6 +121,7 @@
         {{ nzHeader }}
       </ng-container>
       <lib-tooltip
+        [nzColumns]="nzColumns"
         (changeSize)="changeSize($event)"
         (toggleFullScreen)="toggleFullScreen($event)"
         (refresh)="refresh()"

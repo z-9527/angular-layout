@@ -12,10 +12,18 @@ import {
   ColumnHeightOutline,
   FullscreenExitOutline,
   FullscreenOutline,
+  MoreOutline,
   ReloadOutline,
   SettingOutline,
+  VerticalAlignBottomOutline,
+  VerticalAlignMiddleOutline,
+  VerticalAlignTopOutline,
 } from '@ant-design/icons-angular/icons';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { ColumnSettingComponent } from './column-setting/column-setting.component';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 const icons: IconDefinition[] = [
   ColumnHeightOutline,
@@ -23,9 +31,13 @@ const icons: IconDefinition[] = [
   ReloadOutline,
   FullscreenOutline,
   FullscreenExitOutline,
+  VerticalAlignTopOutline,
+  VerticalAlignBottomOutline,
+  VerticalAlignMiddleOutline,
+  MoreOutline,
 ];
 @NgModule({
-  declarations: [TableComponent, TooltipComponent],
+  declarations: [TableComponent, TooltipComponent, ColumnSettingComponent],
   imports: [
     NzTableModule,
     NzOutletModule,
@@ -34,6 +46,9 @@ const icons: IconDefinition[] = [
     NzIconModule.forChild(icons),
     NzDropDownModule,
     NzButtonModule,
+    NzPopoverModule,
+    DragDropModule,
+    NzCheckboxModule,
   ],
   exports: [TableComponent],
 })
