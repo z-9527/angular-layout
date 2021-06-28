@@ -43,7 +43,7 @@
           ></th>
         </ng-container>
 
-        <ng-container *ngFor="let column of nzColumns">
+        <ng-container *ngFor="let column of _columns">
           <th
             [nzRight]="column.fixed === 'right'"
             [nzLeft]="column.fixed === 'left'"
@@ -84,7 +84,7 @@
             "
           ></td>
         </ng-container>
-        <ng-container *ngFor="let item of nzColumns">
+        <ng-container *ngFor="let item of _columns">
           <td
             [class]="item.className"
             [nzRight]="item.fixed === 'right'"
@@ -121,10 +121,12 @@
         {{ nzHeader }}
       </ng-container>
       <lib-tooltip
-        [nzColumns]="nzColumns"
+        [nzColumns]="_columns"
+        [initColumns]="nzColumns"
         (changeSize)="changeSize($event)"
         (toggleFullScreen)="toggleFullScreen($event)"
         (refresh)="refresh()"
+        (changeColumns)="changeColumns($event)"
       ></lib-tooltip>
     </div>
   </div>

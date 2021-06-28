@@ -15,18 +15,44 @@
 <ng-template #header>
   <div class="setting-header">
     <span>列展示</span>
-    <button nz-button nzType="link" nzSize="small" [style.padding]="'0px'">
+    <button
+      nz-button
+      nzType="link"
+      nzSize="small"
+      [style.padding]="'0px'"
+      (click)="onReset()"
+    >
       重置
     </button>
   </div>
 </ng-template>
 
 <ng-template #content>
-  <div class="content">
+  <div class="content" cdkDropListGroup>
     <ng-container
       *ngTemplateOutlet="
         dropList;
-        context: { title: '固定在左侧', list: columns }
+        context: {
+          title: '固定在左侧',
+          list: fixedLeftList,
+          key: 'fixedLeftList'
+        }
+      "
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="
+        dropList;
+        context: { title: '不固定', list: centerList, key: 'centerList' }
+      "
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="
+        dropList;
+        context: {
+          title: '固定在右侧',
+          list: fixedRightList,
+          key: 'fixedRightList'
+        }
       "
     ></ng-container>
   </div>
@@ -35,11 +61,16 @@
 <ng-template #dropList let-title="title" let-type="title" let-list="list">
   <div>
     <div class="title">{{ title }}</div>
-    <div cdkDropList [cdkDropListData]="list" class="drag-list">
+    <div
+      class="drag-list"
+      cdkDropList
+      [cdkDropListData]="list"
+      (cdkDropListDropped)="drop($event)"
+    >
       <div *ngFor="let item of list" cdkDrag class="drag-list-item">
         <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
         <div>
-          <label nz-checkbox [(ngModel)]="checked" class="label">
+          <label nz-checkbox [ngModel]="item.show" class="label">
             {{ item.title }}
           </label>
         </div>

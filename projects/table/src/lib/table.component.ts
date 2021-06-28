@@ -17,6 +17,7 @@ import {
 } from '../interface';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Observable } from 'rxjs';
+import { cloneDeep } from 'lodash';
 
 export type SizeType = 'middle' | 'small' | 'default';
 
@@ -52,6 +53,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Output() nzQueryParams?: EventEmitter<NzTableQueryParams> =
     new EventEmitter();
 
+  _columns: INzColumn[] = [];
   _size: SizeType = 'default';
   _selectedRowKeys = new Set<number | string>();
   _total: number = 0;
@@ -83,6 +85,9 @@ export class TableComponent implements OnInit, OnChanges {
       }
       if (key === 'nzLoading') {
         this._loading = field.currentValue;
+      }
+      if (key === 'nzColumns') {
+        this._columns = cloneDeep(field.currentValue);
       }
     }
   }
@@ -197,5 +202,9 @@ export class TableComponent implements OnInit, OnChanges {
   reload() {
     this.refresh();
     this._selectedRowKeys.clear();
+  }
+
+  changeColumns(arr) {
+    this._columns = cloneDeep(arr);
   }
 }

@@ -33,6 +33,7 @@ export const columns: INzColumn[] = [
     key: 'age',
     width: '120px',
     align: 'center',
+    fixed: 'left',
   },
   {
     title: '住址',

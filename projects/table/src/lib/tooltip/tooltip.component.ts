@@ -8,9 +8,11 @@ import { INzColumn } from '../../interface';
 })
 export class TooltipComponent implements OnInit {
   @Input() nzColumns: INzColumn[] = [];
+  @Input() initColumns: INzColumn[] = [];
   @Output() changeSize: EventEmitter<any> = new EventEmitter();
   @Output() toggleFullScreen: EventEmitter<any> = new EventEmitter();
   @Output() refresh: EventEmitter<any> = new EventEmitter();
+  @Output() changeColumns: EventEmitter<INzColumn[]> = new EventEmitter();
   fullscreen = false;
   constructor() {}
 
@@ -25,5 +27,8 @@ export class TooltipComponent implements OnInit {
   }
   _refresh() {
     this.refresh.emit();
+  }
+  _changeColumns(arr) {
+    this.changeColumns.emit(arr);
   }
 }
