@@ -24,6 +24,7 @@ import { ColumnSettingComponent } from './column-setting/column-setting.componen
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const icons: IconDefinition[] = [
   ColumnHeightOutline,
@@ -49,6 +50,8 @@ const icons: IconDefinition[] = [
     NzPopoverModule,
     DragDropModule,
     NzCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [TableComponent],
 })

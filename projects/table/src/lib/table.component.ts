@@ -86,8 +86,10 @@ export class TableComponent implements OnInit, OnChanges {
       if (key === 'nzLoading') {
         this._loading = field.currentValue;
       }
-      if (key === 'nzColumns') {
-        this._columns = cloneDeep(field.currentValue);
+      if (key === 'nzColumns' && field.currentValue) {
+        this._columns = cloneDeep(
+          field.currentValue.map((item) => ({ ...item, show: true }))
+        );
       }
     }
   }

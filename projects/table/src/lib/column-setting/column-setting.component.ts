@@ -57,7 +57,6 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(3333);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -84,7 +83,7 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
       ...item,
       fixed: undefined,
     }));
-    const fixedRightList = this.fixedLeftList.map((item) => ({
+    const fixedRightList = this.fixedRightList.map((item) => ({
       ...item,
       fixed: 'right',
     }));

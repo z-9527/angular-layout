@@ -67,14 +67,19 @@
       [cdkDropListData]="list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let item of list" cdkDrag class="drag-list-item">
+      <div
+        *ngFor="let item of list"
+        cdkDrag
+        class="drag-list-item"
+        [cdkDragDisabled]="!item.show"
+      >
         <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
         <div>
-          <label nz-checkbox [ngModel]="item.show" class="label">
+          <label nz-checkbox [(ngModel)]="item.show" class="label">
             {{ item.title }}
           </label>
         </div>
-        <div>
+        <div *ngIf="item.show">
           <i
             class="action-icon"
             nz-icon
