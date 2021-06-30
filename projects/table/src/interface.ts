@@ -21,7 +21,7 @@ export interface INzColumn extends Record<string, any> {
   align?: 'right' | 'left' | 'center';
 
   showSort?: boolean;
-  sortFn?: NzTableSortFn;
+  sortFn?: NzTableSortFn | boolean;
   sortDirections?: NzTableSortOrder[];
   nzSortOrder?: NzTableSortOrder;
   sortOrderChange?: (_order: NzTableSortOrder) => unknown;

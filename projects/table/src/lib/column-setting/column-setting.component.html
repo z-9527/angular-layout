@@ -61,6 +61,7 @@
         [cdkDragDisabled]="!item.show"
       >
         <div class="item-custom-placeholder" *cdkDragPlaceholder></div>
+        <i class="drag-icon" nz-icon [nzIconfont]="'icon-drag'"></i>
         <div>
           <label nz-checkbox [(ngModel)]="item.show" class="label">
             {{ item.title }}

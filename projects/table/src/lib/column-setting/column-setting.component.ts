@@ -13,6 +13,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 const MAX_FIXED_NUM = 5;
 
@@ -48,7 +49,11 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
     },
   ];
 
-  constructor() {}
+  constructor(private iconService: NzIconService) {
+    this.iconService.fetchFromIconfont({
+      scriptUrl: '//at.alicdn.com/t/font_2643049_q0k2oefv92.js',
+    });
+  }
 
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
