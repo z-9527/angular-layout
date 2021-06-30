@@ -7,6 +7,7 @@
     [nzPopoverTitle]="header"
     [nzPopoverContent]="content"
     nzPopoverTrigger="click"
+    nzPopoverBackdrop
     [nzPopoverOverlayClassName]="'table-setting-popover'"
     nzPopoverPlacement="bottomRight"
   ></i>
@@ -29,36 +30,22 @@
 
 <ng-template #content>
   <div class="content" cdkDropListGroup>
-    <ng-container
-      *ngTemplateOutlet="
-        dropList;
-        context: {
-          title: '固定在左侧',
-          list: fixedLeftList,
-          key: 'fixedLeftList'
-        }
-      "
-    ></ng-container>
-    <ng-container
-      *ngTemplateOutlet="
-        dropList;
-        context: { title: '不固定', list: centerList, key: 'centerList' }
-      "
-    ></ng-container>
-    <ng-container
-      *ngTemplateOutlet="
-        dropList;
-        context: {
-          title: '固定在右侧',
-          list: fixedRightList,
-          key: 'fixedRightList'
-        }
-      "
-    ></ng-container>
+    <ng-container *ngFor="let item of config">
+      <ng-container
+        *ngTemplateOutlet="
+          dropList;
+          context: {
+            title: item.title,
+            list: getList(item.key),
+            key: item.key
+          }
+        "
+      ></ng-container>
+    </ng-container>
   </div>
 </ng-template>
 
-<ng-template #dropList let-title="title" let-type="title" let-list="list">
+<ng-template #dropList let-title="title" let-list="list" let-key="key">
   <div>
     <div class="title">{{ title }}</div>
     <div
@@ -68,7 +55,7 @@
       (cdkDropListDropped)="drop($event)"
     >
       <div
-        *ngFor="let item of list"
+        *ngFor="let item of list; let index = index"
         cdkDrag
         class="drag-list-item"
         [cdkDragDisabled]="!item.show"
@@ -80,24 +67,27 @@
           </label>
         </div>
         <div *ngIf="item.show">
-          <i
-            class="action-icon"
-            nz-icon
-            nzType="vertical-align-top"
-            nzTheme="outline"
-            nz-tooltip
-            nzTooltipTitle="固定在列首"
-            nzTooltipPlacement="top"
-          ></i>
-          <i
-            class="action-icon"
-            nz-icon
-            nzType="vertical-align-bottom"
-            nzTheme="outline"
-            nz-tooltip
-            nzTooltipTitle="固定在列尾"
-            nzTooltipPlacement="top"
-          ></i>
+          <ng-container *ngFor="let subItem of config">
+            <i
+              *ngIf="key !== subItem.key"
+              [ngClass]="{
+                'action-icon': true,
+                'disabled-icon': getIconDisabled(subItem.key)
+              }"
+              nz-icon
+              [nzType]="subItem.icon"
+              nzTheme="outline"
+              nz-tooltip
+              [nzTooltipTitle]="
+                getIconDisabled(subItem.key) ? '固定项已达上限' : subItem.title
+              "
+              nzTooltipPlacement="top"
+              (click)="
+                !getIconDisabled(subItem.key) &&
+                  adjustPosition(index, key, subItem.key, item)
+              "
+            ></i>
+          </ng-container>
         </div>
       </div>
     </div>

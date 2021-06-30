@@ -14,6 +14,8 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
+const MAX_FIXED_NUM = 5;
+
 @Component({
   selector: 'lib-column-setting',
   templateUrl: './column-setting.component.html',
@@ -27,6 +29,25 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
   fixedLeftList: INzColumn[] = [];
   centerList: INzColumn[] = [];
   fixedRightList: INzColumn[] = [];
+
+  config = [
+    {
+      title: '固定在左侧',
+      icon: 'vertical-align-top',
+      key: 'fixedLeftList',
+    },
+    {
+      title: '不固定',
+      icon: 'vertical-align-middle',
+      key: 'centerList',
+    },
+    {
+      title: '固定在右侧',
+      icon: 'vertical-align-bottom',
+      key: 'fixedRightList',
+    },
+  ];
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -34,6 +55,19 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
     if ('nzColumns' in changes) {
       this.handleColumns(changes.nzColumns.currentValue);
     }
+  }
+
+  getList(key) {
+    return this[key];
+  }
+
+  getIconDisabled(key) {
+    if (key === 'centerList') {
+      return false;
+    }
+    return (
+      this.fixedLeftList.length + this.fixedRightList.length >= MAX_FIXED_NUM
+    );
   }
 
   handleColumns(arr: INzColumn[]) {
@@ -98,7 +132,22 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
   }
 
   onReset() {
-    this.handleColumns(this.initColumns);
+    this.handleColumns(
+      this.initColumns.map((item) => ({ ...item, show: true }))
+    );
+    this._changeColumns();
+  }
+
+  adjustPosition(index, from, to, item) {
+    this[from].splice(index, 1);
+    const numMap = {
+      fixedLeftList: 0,
+      centerList: 1,
+      fixedRightList: 2,
+    };
+    const direction = numMap[to] - numMap[from] > 0 ? 'unshift' : 'push';
+    this[to][direction](item);
+
     this._changeColumns();
   }
 }
