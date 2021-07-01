@@ -8,6 +8,7 @@ import { INzColumn } from '../../interface';
 })
 export class TooltipComponent implements OnInit {
   @Input() initColumns: INzColumn[] = [];
+  @Input() originColumns: INzColumn[] = [];
   @Output() changeSize: EventEmitter<any> = new EventEmitter();
   @Output() toggleFullScreen: EventEmitter<any> = new EventEmitter();
   @Output() refresh: EventEmitter<any> = new EventEmitter();

@@ -99,6 +99,8 @@ export class TableDemoComponent implements OnInit {
           'id|+1': startIndex,
           name: '@name',
           'number|+1': startIndex,
+          'age|20-30': 22,
+          address: `@county(true)`,
         },
       ],
     });

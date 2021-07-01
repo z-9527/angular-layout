@@ -60,6 +60,7 @@
             [nzFilterMultiple]="column.nzFilterMultiple"
             [nzFilterChange]="column.nzFilterChange"
             [nzColumnKey]="column.dataIndex"
+            [nzWidth]="column.width"
           >
             <ng-container
               *nzStringTemplateOutlet="
@@ -124,7 +125,7 @@
         {{ nzHeader }}
       </ng-container>
       <lib-tooltip
-        [nzColumns]="_columns"
+        [originColumns]="nzColumns"
         [initColumns]="_initColumns"
         (changeSize)="changeSize($event)"
         (toggleFullScreen)="toggleFullScreen($event)"
@@ -153,12 +154,7 @@
       }
     "
   >
-    <div
-      class="table-ellipsis"
-      [style.width]="column.width"
-      nz-tooltip
-      [nzTooltipTitle]="text"
-    >
+    <div class="table-ellipsis" nz-tooltip [nzTooltipTitle]="text">
       {{ text }}
     </div>
   </ng-container>

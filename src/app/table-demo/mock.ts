@@ -18,6 +18,15 @@ export const dataSource = [
 
 export const columns: INzColumn[] = [
   {
+    title: '序号',
+    dataIndex: 'number',
+    fixed: 'left',
+    showSort: true,
+    sortFn: (a, b) => {
+      return b.number - a.number;
+    },
+  },
+  {
     title: '姓名',
     dataIndex: 'name',
     key: 'name',
@@ -30,23 +39,13 @@ export const columns: INzColumn[] = [
   {
     title: '年龄',
     dataIndex: 'age',
-    key: 'age',
-    width: '120px',
     align: 'center',
-    fixed: 'left',
+    width: '120px',
   },
   {
     title: '住址',
     dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'index',
-    dataIndex: 'number',
-    showSort: true,
-    sortFn: (a, b) => {
-      return b.number - a.number;
-    },
+    width: '100px',
   },
   {
     title: 'column1',

@@ -24,6 +24,7 @@ const MAX_FIXED_NUM = 5;
 })
 export class ColumnSettingComponent implements OnInit, OnChanges {
   @Input() initColumns: INzColumn[] = [];
+  @Input() originColumns: INzColumn[] = [];
   @Output() changeColumns: EventEmitter<INzColumn[]> = new EventEmitter();
 
   fixedLeftList: INzColumn[] = [];
@@ -137,7 +138,7 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
 
   onReset() {
     this.handleColumns(
-      this.initColumns.map((item) => ({ ...item, show: true }))
+      this.originColumns.map((item) => ({ ...item, show: true }))
     );
     this._changeColumns();
   }
