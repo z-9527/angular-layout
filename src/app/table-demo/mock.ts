@@ -41,6 +41,9 @@ export const columns: INzColumn[] = [
     dataIndex: 'age',
     align: 'center',
     width: '120px',
+    format(text) {
+      return `${text}岁`;
+    },
   },
   {
     title: '住址',
@@ -48,13 +51,14 @@ export const columns: INzColumn[] = [
     width: '100px',
   },
   {
-    title: 'column1',
-    dataIndex: 'column',
-    ref: 'test',
+    title: '链接',
+    dataIndex: 'link',
+    link: (url) => url,
   },
   {
     title: 'column1',
     dataIndex: 'column',
+    ref: 'test',
   },
   {
     title: 'column1',

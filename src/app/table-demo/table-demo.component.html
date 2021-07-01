@@ -13,7 +13,15 @@
     [nzHeader]="header"
   ></lib-table>
 
-  <ng-template #test> fdafafaf </ng-template>
+  <ng-template
+    #test
+    let-dataIndex="dataIndex"
+    let-record="record"
+    let-index="index"
+    let-text="text"
+  >
+    <div (click)="onTest(dataIndex, record, index, text)">测试</div>
+  </ng-template>
   <ng-template #action let-record let-index="index"> </ng-template>
   <ng-template #header>
     <button nz-button nzType="primary" (click)="onClear()">清空勾选</button>
@@ -41,6 +49,5 @@
     [nzScroll]="{ x: '120%' }"
     [nzTitle]="'表格标题3'"
     [nzQueryList]="queryList"
-    [tableKey]="'table3'"
   ></lib-table>
 </div>

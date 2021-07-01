@@ -14,6 +14,7 @@ const data = Mock.mock({
       age: 32,
       address: `@county(true)`,
       disabled: '@boolean',
+      column: 'column',
     },
   ],
 });
@@ -101,9 +102,15 @@ export class TableDemoComponent implements OnInit {
           'number|+1': startIndex,
           'age|20-30': 22,
           address: `@county(true)`,
+          link: 'www.baidu.com',
+          column: 'column',
         },
       ],
     });
     return of(res).pipe(delay(0));
+  }
+
+  onTest(...rest) {
+    console.log('rest33333: ', rest);
   }
 }

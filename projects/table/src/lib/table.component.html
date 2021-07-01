@@ -11,7 +11,7 @@
     [nzScroll]="nzScroll"
     [nzBordered]="nzBordered"
     [nzOuterBordered]="nzOuterBordered"
-    [nzTitle]="header"
+    [nzTitle]="headerRef"
     [nzFooter]="nzFooter"
     [nzNoResult]="nzNoResult"
     [nzShowPagination]="nzShowPagination"
@@ -97,14 +97,16 @@
           >
             <ng-container
               *ngTemplateOutlet="
-                td;
+                tdRef;
                 context: {
                   column: item,
                   data: data,
                   index: i,
+                  dataIndex: item.dataIndex,
                   text: item.format
                     ? item.format(data[item.dataIndex], data, i)
-                    : data[item.dataIndex]
+                    : data[item.dataIndex],
+                  linkUrl: item.link && item.link(data[item.dataIndex], data, i)
                 }
               "
             ></ng-container>
@@ -115,7 +117,7 @@
   </nz-table>
 </div>
 
-<ng-template #header>
+<ng-template #headerRef>
   <div class="header-box">
     <ng-container *nzStringTemplateOutlet="nzTitle">
       <div class="title">{{ nzTitle }}</div>
@@ -137,11 +139,13 @@
 </ng-template>
 
 <ng-template
-  #td
+  #tdRef
   let-data="data"
   let-text="text"
+  let-dataIndex="dataIndex"
   let-index="index"
   let-column="column"
+  let-linkUrl="linkUrl"
 >
   <ng-container
     *nzStringTemplateOutlet="
@@ -150,12 +154,18 @@
         record: data,
         $implicit: data,
         index: index,
-        text: text
+        text: text,
+        dataIndex: dataIndex
       }
     "
   >
     <div class="table-ellipsis" nz-tooltip [nzTooltipTitle]="text">
-      {{ text }}
+      <ng-container *ngIf="column.link; else textRef">
+        <a [href]="linkUrl" target="_blank">{{ text }}</a>
+      </ng-container>
+      <ng-template #textRef>
+        {{ text }}
+      </ng-template>
     </div>
   </ng-container>
 </ng-template>
