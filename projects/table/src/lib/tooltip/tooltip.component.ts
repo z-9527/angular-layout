@@ -7,7 +7,6 @@ import { INzColumn } from '../../interface';
   styleUrls: ['./tooltip.component.less'],
 })
 export class TooltipComponent implements OnInit {
-  @Input() nzColumns: INzColumn[] = [];
   @Input() initColumns: INzColumn[] = [];
   @Output() changeSize: EventEmitter<any> = new EventEmitter();
   @Output() toggleFullScreen: EventEmitter<any> = new EventEmitter();

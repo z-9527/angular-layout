@@ -28,6 +28,7 @@ export type SizeType = 'middle' | 'small' | 'default';
 })
 export class TableComponent implements OnInit, OnChanges {
   @ViewChild('basicTable') basicTable;
+  @Input() tableKey: string;
   @Input() nzColumns: INzColumn[] = [];
   @Input() nzData?: Record<string, any>[];
   @Input() nzSize?: SizeType;
@@ -54,6 +55,7 @@ export class TableComponent implements OnInit, OnChanges {
     new EventEmitter();
 
   _columns: INzColumn[] = [];
+  _initColumns: INzColumn[] = [];
   _size: SizeType = 'default';
   _selectedRowKeys = new Set<number | string>();
   _total: number = 0;
@@ -67,7 +69,6 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('changes: ', changes);
     for (const key in changes) {
       const field = changes[key];
       if (key === 'nzSize') {
@@ -87,11 +88,28 @@ export class TableComponent implements OnInit, OnChanges {
         this._loading = field.currentValue;
       }
       if (key === 'nzColumns' && field.currentValue) {
-        this._columns = cloneDeep(
-          field.currentValue.map((item) => ({ ...item, show: true }))
-        );
+        const list = this.getInitColumns(cloneDeep(field.currentValue));
+        this._columns = list;
+        this._initColumns = list;
       }
     }
+  }
+
+  getInitColumns(arr) {
+    const cachesColumns = JSON.parse(localStorage.getItem(this.tableKey));
+    // 因为JSON没有函数类型值，所以从源columns中获取其它值
+    if (Array.isArray(cachesColumns)) {
+      return cachesColumns.map((item) => {
+        const originColumn =
+          arr.find((subItem) => subItem.dataIndex === item.dataIndex) || item;
+        return {
+          ...originColumn,
+          show: item.show,
+          fixed: item.fixed,
+        };
+      });
+    }
+    return arr.map((item) => ({ ...item, show: true }));
   }
 
   pageIndexChange(index) {
@@ -208,5 +226,11 @@ export class TableComponent implements OnInit, OnChanges {
 
   changeColumns(arr) {
     this._columns = cloneDeep(arr);
+    this.cachesColumns(arr);
+  }
+  cachesColumns(arr) {
+    if (this.tableKey) {
+      localStorage.setItem(this.tableKey, JSON.stringify(arr));
+    }
   }
 }

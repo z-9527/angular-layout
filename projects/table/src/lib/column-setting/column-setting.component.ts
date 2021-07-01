@@ -23,7 +23,6 @@ const MAX_FIXED_NUM = 5;
   styleUrls: ['./column-setting.component.less'],
 })
 export class ColumnSettingComponent implements OnInit, OnChanges {
-  @Input() nzColumns: INzColumn[] = [];
   @Input() initColumns: INzColumn[] = [];
   @Output() changeColumns: EventEmitter<INzColumn[]> = new EventEmitter();
 
@@ -57,8 +56,8 @@ export class ColumnSettingComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
-    if ('nzColumns' in changes) {
-      this.handleColumns(changes.nzColumns.currentValue);
+    if ('initColumns' in changes) {
+      this.handleColumns(changes.initColumns.currentValue);
     }
   }
 
