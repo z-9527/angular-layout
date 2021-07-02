@@ -1,3 +1,12 @@
 <nz-card style="margin: 12px">
-  <lib-info-table></lib-info-table>
+  <lib-info-table
+    [nzTitle]="'信息显示'"
+    [nzConfig]="config"
+    [nzData]="data"
+    [nzTemplateRefs]="{ testRef: testRef }"
+  ></lib-info-table>
 </nz-card>
+
+<ng-template #testRef let-data="data" let-key="key" let-text="text">
+  <div style="color: red" (click)="onTest(data, key, text)">test</div>
+</ng-template>

@@ -1,0 +1,38 @@
+<div class="info-table-wrap">
+  <div class="info-table-title" *ngIf="nzTitle">
+    <ng-container *nzStringTemplateOutlet="nzTitle">
+      {{ nzTitle }}
+    </ng-container>
+  </div>
+  <div>
+    <ng-container *ngIf="isArray(nzConfig)">
+      <ng-container *ngFor="let row of nzConfig">
+        <div class="info-table-row">
+          <ng-container *ngIf="isArray(row)">
+            <ng-container *ngFor="let item of row">
+              <div class="info-table-field">
+                <div class="field-label" [style.width]="nzLabelWidth">
+                  {{ item.label }}
+                </div>
+                <div class="field-value">
+                  <ng-container
+                    *nzStringTemplateOutlet="
+                      nzTemplateRefs[item.ref] || item.ref;
+                      context: {
+                        data: nzData,
+                        text: getValue(nzData, item),
+                        key: item.key
+                      }
+                    "
+                  >
+                    {{ getValue(nzData, item) }}
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
