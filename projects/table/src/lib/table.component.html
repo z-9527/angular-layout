@@ -103,10 +103,8 @@
                   data: data,
                   index: i,
                   dataIndex: item.dataIndex,
-                  text: item.format
-                    ? item.format(data[item.dataIndex], data, i)
-                    : data[item.dataIndex],
-                  linkUrl: item.link && item.link(data[item.dataIndex], data, i)
+                  text: getText(data, item, i),
+                  linkUrl: getLink(data, item, i)
                 }
               "
             ></ng-container>
@@ -149,7 +147,7 @@
 >
   <ng-container
     *nzStringTemplateOutlet="
-      nzTemplateRefs[column.ref];
+      nzTemplateRefs[column.ref] || column.ref;
       context: {
         record: data,
         $implicit: data,

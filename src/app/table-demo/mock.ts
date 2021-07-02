@@ -53,7 +53,10 @@ export const columns: INzColumn[] = [
   {
     title: '链接',
     dataIndex: 'link',
-    link: (url) => url,
+    link: true,
+    // link: (text, record, index) => {
+    //   return 'www.b.com';
+    // },
   },
   {
     title: 'column1',
@@ -72,6 +75,7 @@ export const columns: INzColumn[] = [
     title: '操作',
     dataIndex: 'action',
     fixed: 'right',
-    // ref: 'action',
+    width: '150px',
+    ref: 'actionRef',
   },
 ];

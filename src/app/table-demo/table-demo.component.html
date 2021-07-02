@@ -49,5 +49,18 @@
     [nzScroll]="{ x: '120%' }"
     [nzTitle]="'表格标题3'"
     [nzQueryList]="queryList"
+    [nzTemplateRefs]="{ actionRef: actionRef }"
   ></lib-table>
 </div>
+
+<ng-template
+  #actionRef
+  let-record
+  let-index="index"
+  let-text="text"
+  let-dataIndex="dataIndex"
+>
+  <a (click)="onTest(text, record, index, dataIndex)">查看</a>
+  <nz-divider nzType="vertical"></nz-divider>
+  <a>删除</a>
+</ng-template>

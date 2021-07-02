@@ -19,7 +19,7 @@ export interface INzColumn extends Record<string, any> {
   width?: string;
   fixed?: 'right' | 'left';
   align?: 'right' | 'left' | 'center';
-  link?: (_text: string, _record: any, _index: number) => string;
+  link?: boolean | ((_text: string, _record: any, _index: number) => string);
 
   showSort?: boolean;
   sortFn?: NzTableSortFn | boolean;

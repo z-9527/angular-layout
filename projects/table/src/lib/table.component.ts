@@ -233,4 +233,19 @@ export class TableComponent implements OnInit, OnChanges {
       localStorage.setItem(this.tableKey, JSON.stringify(arr));
     }
   }
+  getText(data, item, index) {
+    return item.format
+      ? item.format(data[item.dataIndex], data, index)
+      : data[item.dataIndex];
+  }
+
+  getLink(data, item, index) {
+    if (item.link === true) {
+      return data[item.dataIndex];
+    }
+    if (typeof item.link === 'function') {
+      return item.link(data[item.dataIndex], data, index);
+    }
+    return null;
+  }
 }

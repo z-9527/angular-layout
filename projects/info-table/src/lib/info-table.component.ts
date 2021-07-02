@@ -19,7 +19,7 @@ export class InfoTableComponent implements OnInit {
     return Array.isArray(arr);
   }
 
-  getValue(data, item) {
+  getText(data, item) {
     return item.format ? item.format(data, item.key) : data[item.key];
   }
   getLink(data, item) {
