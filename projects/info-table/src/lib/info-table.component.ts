@@ -22,4 +22,13 @@ export class InfoTableComponent implements OnInit {
   getValue(data, item) {
     return item.format ? item.format(data, item.key) : data[item.key];
   }
+  getLink(data, item) {
+    if (item.link === true) {
+      return data[item.key];
+    }
+    if (typeof item.link === 'function') {
+      return item.link(data, item.key);
+    }
+    return null;
+  }
 }

@@ -1,0 +1,15 @@
+<div class="ellipsis-wrapper">
+  <div [ngClass]="{ text: true, isFold: isFold, expand: !isFold }">
+    <a class="btn" (click)="toggleFold()">
+      <ng-container *ngIf="isFold; else elseRef">
+        展开
+        <i nz-icon nzType="down" nzTheme="outline" style="font-size: 12px"></i>
+      </ng-container>
+      <ng-template #elseRef>
+        收起
+        <i nz-icon nzType="up" nzTheme="outline" style="font-size: 12px"></i>
+      </ng-template>
+    </a>
+    <ng-content></ng-content>
+  </div>
+</div>

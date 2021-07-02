@@ -16,16 +16,17 @@
                 </div>
                 <div class="field-value">
                   <ng-container
-                    *nzStringTemplateOutlet="
-                      nzTemplateRefs[item.ref] || item.ref;
+                    *ngTemplateOutlet="
+                      fieldRef;
                       context: {
-                        data: nzData,
+                        ref: nzTemplateRefs[item.ref] || item.ref,
                         text: getValue(nzData, item),
-                        key: item.key
+                        link: getLink(nzData, item),
+                        item: item,
+                        data: nzData
                       }
                     "
                   >
-                    {{ getValue(nzData, item) }}
                   </ng-container>
                 </div>
               </div>
@@ -36,3 +37,38 @@
     </ng-container>
   </div>
 </div>
+
+<ng-template
+  #fieldRef
+  let-ref="ref"
+  let-text="text"
+  let-item="item"
+  let-data="data"
+  let-link="link"
+>
+  <ng-container
+    *nzStringTemplateOutlet="
+      ref;
+      context: {
+        data: data,
+        text: text,
+        key: item.key,
+        link: link
+      }
+    "
+  >
+    <ng-container *ngIf="item.ellipsis === false; else elseRef">
+      <ng-container *ngTemplateOutlet="textRef"></ng-container>
+    </ng-container>
+    <ng-template #elseRef>
+      <lib-ellipsis-text>
+        <ng-container *ngTemplateOutlet="textRef"></ng-container>
+      </lib-ellipsis-text>
+    </ng-template>
+
+    <ng-template #textRef>
+      <a *ngIf="link" [href]="link" target="_blank">{{ text }}</a>
+      <ng-container *ngIf="!link">{{ text }}</ng-container>
+    </ng-template>
+  </ng-container>
+</ng-template>

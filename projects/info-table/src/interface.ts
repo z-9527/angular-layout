@@ -7,4 +7,6 @@ export interface IField extends Record<string, any> {
   key?: string;
   ref?: StringTemplateRef;
   format?: (_data, _key: string) => string | number;
+  ellipsis?: boolean;
+  link?: boolean | ((_data, _key: string) => string);
 }
