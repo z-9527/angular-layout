@@ -11,6 +11,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
+      "info-table": [
+        "projects/info-table/src/public-api"
+      ],
       "layout": [
         "projects/layout/src/public-api"
       ],
