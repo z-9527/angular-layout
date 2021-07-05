@@ -232,6 +232,43 @@
           }
         }
       }
+    },
+    "antd-formly": {
+      "projectType": "library",
+      "root": "projects/antd-formly",
+      "sourceRoot": "projects/antd-formly/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/antd-formly/tsconfig.lib.json",
+            "project": "projects/antd-formly/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/antd-formly/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/antd-formly/src/test.ts",
+            "tsConfig": "projects/antd-formly/tsconfig.spec.json",
+            "karmaConfig": "projects/antd-formly/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/antd-formly/**/*.ts",
+              "projects/antd-formly/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "layout",

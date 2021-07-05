@@ -11,6 +11,11 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
+      "antd-formly": [
+        "projects/antd-formly/src/public-api",
+        "dist/antd-formly/antd-formly",
+        "dist/antd-formly"
+      ],
       "info-table": [
         "projects/info-table/src/public-api"
       ],
