@@ -14,6 +14,13 @@ const routes: Routes = [
         (m) => m.InfoTableDemoModule
       ),
   },
+  {
+    path: 'formly-demo',
+    loadChildren: () =>
+      import('./formly-demo/formly-demo.module').then(
+        (m) => m.FormlyDemoModule
+      ),
+  },
   { path: '**', component: NotFoundComponent }, // Wildcard route for a 404 page
 ];
 
