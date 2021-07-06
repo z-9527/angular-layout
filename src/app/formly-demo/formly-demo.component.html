@@ -1,15 +1,22 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <formly-form
-    [model]="model"
-    [fields]="fields"
-    [options]="options"
-    [form]="form"
-  ></formly-form>
-  <button
-    type="submit"
-    class="btn btn-primary submit-button"
-    [disabled]="!form.valid"
-  >
-    Submit
-  </button>
-</form>
+<div style="margin: 12px; background-color: #fff; padding: 12px">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <formly-form
+      [model]="model"
+      [fields]="fields"
+      [options]="{
+        formState: {
+          vertical: true,
+          templateRefs: {
+            btnRef: btnRef
+          }
+        }
+      }"
+      [form]="form"
+    ></formly-form>
+    <button nz-button nzType="primary" type="submit">Submit</button>
+  </form>
+</div>
+
+<ng-template #btnRef>
+  <div style="line-height: 32px; margin-left: 10px"><a>新增</a></div>
+</ng-template>

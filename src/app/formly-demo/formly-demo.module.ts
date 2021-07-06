@@ -6,6 +6,7 @@ import { FormlyDemoComponent } from './formly-demo.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyNgZorroAntdModule } from 'antd-formly';
 import { FormlyModule } from '@ngx-formly/core';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @NgModule({
   declarations: [FormlyDemoComponent],
@@ -15,6 +16,7 @@ import { FormlyModule } from '@ngx-formly/core';
     ReactiveFormsModule,
     FormlyNgZorroAntdModule,
     FormlyModule.forRoot(),
+    NzButtonModule,
   ],
 })
 export class FormlyDemoModule {}
