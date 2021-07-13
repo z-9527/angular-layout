@@ -24,10 +24,10 @@ export class FormlyDemoComponent implements OnInit {
   ngOnInit(): void {
     this.fields = [
       {
-        key: 'firstName',
+        key: 'input',
         type: 'input',
         templateOptions: {
-          label: 'firstName',
+          label: 'input',
           required: true,
           itemClassName: 'ttttt',
           tooltipTitle: '提示信息提示',
@@ -37,10 +37,13 @@ export class FormlyDemoComponent implements OnInit {
         },
       },
       {
-        key: 'firstName2',
-        type: 'input',
+        key: 'textarea',
+        type: 'textarea',
         templateOptions: {
-          label: 'firstName2',
+          label: 'textarea',
+          required: true,
+          showCount: true,
+          maxLength: 100,
         },
       },
       {
@@ -48,13 +51,14 @@ export class FormlyDemoComponent implements OnInit {
         type: 'input',
         templateOptions: {
           label: 'firstName3',
+          suffixRef: 'search',
         },
       },
       {
-        key: 'firstName4',
-        type: 'input',
+        key: 'number',
+        type: 'number',
         templateOptions: {
-          label: 'firstName3',
+          label: 'number',
         },
       },
     ];

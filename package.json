@@ -31,7 +31,7 @@
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
-    "@ali/gd-lint-config": "^1.0.7",
+    "@ali/gd-lint-config": "^1.0.11",
     "@angular-builders/custom-webpack": "^12.1.0",
     "@angular-devkit/build-angular": "~0.1102.5",
     "@angular-eslint/builder": "4.3.0",
