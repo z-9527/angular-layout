@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 // eslint-disable-next-line no-unused-vars
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-formly-demo',
@@ -59,6 +60,45 @@ export class FormlyDemoComponent implements OnInit {
         type: 'number',
         templateOptions: {
           label: 'number',
+        },
+      },
+      {
+        key: 'select',
+        type: 'select',
+        templateOptions: {
+          label: 'select',
+          options: [
+            { label: '111', value: '111' },
+            { label: '测试', children: [{ label: 'children', value: 'chidren' }] },
+          ],
+          showSearch: true,
+        },
+      },
+      {
+        key: 'm-select',
+        type: 'select',
+        templateOptions: {
+          label: 'm-select',
+          options: [
+            { label: 'Option 1', value: '1' },
+            { label: 'Option 2', value: '2' },
+            { label: 'Option 3', value: '3' },
+          ],
+          mode: 'multiple',
+        },
+      },
+      {
+        key: 's-select',
+        type: 'select',
+        defaultValue: '0',
+        templateOptions: {
+          label: 's-select',
+          // mode: 'multiple',
+          options: [{ label: 'Option 0', value: '0' }],
+          queryOptions: (v) => {
+            console.log('v: ', v);
+            return of([{ label: `Option ${v}`, value: v }]);
+          },
         },
       },
     ];
