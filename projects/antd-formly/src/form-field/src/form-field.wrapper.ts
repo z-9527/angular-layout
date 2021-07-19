@@ -39,11 +39,7 @@ const DEFAULT_WRAPPER_COL = 16;
             >{{ to.label }}
           </nz-form-label>
         </ng-container>
-        <nz-form-control
-          [nzValidateStatus]="errorState"
-          [nzErrorTip]="errorTpl"
-          [nzSpan]="wrapperCol"
-        >
+        <nz-form-control [nzValidateStatus]="errorState" [nzErrorTip]="errorTpl" [nzSpan]="wrapperCol">
           <div nz-row>
             <div style="flex: 1;">
               <ng-container #fieldComponent></ng-container>
@@ -55,9 +51,7 @@ const DEFAULT_WRAPPER_COL = 16;
             </div>
           </div>
           <ng-template #errorTpl let-control>
-            <formly-validation-message
-              [field]="field"
-            ></formly-validation-message>
+            <formly-validation-message [field]="field"></formly-validation-message>
           </ng-template>
         </nz-form-control>
       </nz-form-item>
@@ -81,17 +75,14 @@ export class FormlyWrapperFormField extends FieldWrapper {
     if (this.formState.vertical) {
       return 24;
     }
-    return (
-      this.to.wrapperCol ?? this.formState.wrapperCol ?? DEFAULT_WRAPPER_COL
-    );
+    return this.to.wrapperCol ?? this.formState.wrapperCol ?? DEFAULT_WRAPPER_COL;
   }
 
   get itemClass() {
     return {
       'item-wrap': true,
       'item-vertical': this.formState.vertical,
-      [this.to.itemClassName]:
-        this.to.itemClassName || this.formState.itemClassName,
+      [this.to.itemClassName]: this.to.itemClassName || this.formState.itemClassName,
     };
   }
 

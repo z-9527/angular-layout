@@ -8,7 +8,8 @@
           vertical: true,
           templateRefs: {
             btnRef: btnRef,
-            search: search
+            search: search,
+            renderTpl: renderTpl
           }
         }
       }"
@@ -25,3 +26,7 @@
 <ng-template #search>
   <i nz-icon nzType="search"></i>
 </ng-template>
+
+<ng-template #renderTpl let-option let-index="index"
+  >{{ index + 1 }}. {{ option.label }}</ng-template
+>

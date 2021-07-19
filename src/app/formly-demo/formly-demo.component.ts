@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 // eslint-disable-next-line no-unused-vars
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-formly-demo',
@@ -99,6 +100,64 @@ export class FormlyDemoComponent implements OnInit {
             console.log('v: ', v);
             return of([{ label: `Option ${v}`, value: v }]);
           },
+        },
+      },
+      {
+        key: 'cascader',
+        type: 'cascader',
+        templateOptions: {
+          label: 'cascader',
+          showSearch: true,
+          optionRenderRef: 'renderTpl',
+          options: [
+            {
+              value: 'zhejiang',
+              label: 'Zhejiang',
+              children: [
+                {
+                  value: 'hangzhou',
+                  label: 'Hangzhou',
+                  children: [
+                    {
+                      value: 'xihu',
+                      label: 'West Lake',
+                      isLeaf: true,
+                    },
+                  ],
+                },
+                {
+                  value: 'ningbo',
+                  label: 'Ningbo',
+                  isLeaf: true,
+                },
+              ],
+            },
+            {
+              value: 'jiangsu',
+              label: 'Jiangsu',
+              children: [
+                {
+                  value: 'nanjing',
+                  label: 'Nanjing',
+                  children: [
+                    {
+                      value: 'zhonghuamen',
+                      label: 'Zhong Hua Men',
+                      isLeaf: true,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        key: 'district',
+        type: 'district',
+        templateOptions: {
+          label: 'district',
+          // areaCode: of('120100').pipe(delay(1500)),
         },
       },
     ];
