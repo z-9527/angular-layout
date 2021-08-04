@@ -20,7 +20,7 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
           wrappers: ['form-field'],
         },
         {
-          name: 'district',
+          name: 'address',
           extends: 'cascader',
           defaultOptions: {
             templateOptions: {

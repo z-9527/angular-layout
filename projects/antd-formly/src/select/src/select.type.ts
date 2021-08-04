@@ -90,13 +90,16 @@ export class FormlyFieldSelect extends FieldType implements OnInit {
       mode: 'default',
       optionHeightPx: 32,
       optionOverflowSize: 8,
+      showSearch: true,
     },
   };
-  searchChange$ = new BehaviorSubject('');
+  searchChange$: BehaviorSubject<string>;
   optionList: string[] = [];
   isLoading = false;
+  emptySearch = false; //值为空时是否也发请求
 
   ngOnInit(): void {
+    this.searchChange$ = new BehaviorSubject(this.model[this.field.key as string] || '');
     const optionList$: Observable<string[]> = this.searchChange$
       .asObservable()
       .pipe(debounceTime(500))
@@ -126,6 +129,9 @@ export class FormlyFieldSelect extends FieldType implements OnInit {
   onSearch(value) {
     if (this.to.onSearch) {
       this.to.onSearch(value);
+    }
+    if (!value && !this.to.emptySearch) {
+      return;
     }
     if (this.to.queryOptions) {
       this.isLoading = true;

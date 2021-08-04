@@ -59,6 +59,7 @@ export class FormlyFieldCascader extends FieldType {
       showInput: true,
       valueProperty: 'value',
       suffixIcon: 'down',
+      showSearch: true,
     },
   };
   constructor(private httpService: HttpClient) {

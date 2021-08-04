@@ -72,7 +72,6 @@ export class FormlyDemoComponent implements OnInit {
             { label: '111', value: '111' },
             { label: '测试', children: [{ label: 'children', value: 'chidren' }] },
           ],
-          showSearch: true,
         },
       },
       {
@@ -80,11 +79,11 @@ export class FormlyDemoComponent implements OnInit {
         type: 'select',
         templateOptions: {
           label: 'm-select',
-          options: [
+          options: of([
             { label: 'Option 1', value: '1' },
             { label: 'Option 2', value: '2' },
             { label: 'Option 3', value: '3' },
-          ],
+          ]),
           mode: 'multiple',
         },
       },
@@ -107,7 +106,6 @@ export class FormlyDemoComponent implements OnInit {
         type: 'cascader',
         templateOptions: {
           label: 'cascader',
-          showSearch: true,
           optionRenderRef: 'renderTpl',
           options: [
             {
@@ -153,10 +151,10 @@ export class FormlyDemoComponent implements OnInit {
         },
       },
       {
-        key: 'district',
-        type: 'district',
+        key: 'address',
+        type: 'address',
         templateOptions: {
-          label: 'district',
+          label: 'address',
           // areaCode: of('120100').pipe(delay(1500)),
         },
       },
