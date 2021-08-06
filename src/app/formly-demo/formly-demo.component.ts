@@ -158,11 +158,23 @@ export class FormlyDemoComponent implements OnInit {
           // areaCode: of('120100').pipe(delay(1500)),
         },
       },
+      {
+        key: 'radio',
+        type: 'radio',
+        templateOptions: {
+          label: 'radio',
+          options: [
+            { label: 'Apple', value: 'Apple' },
+            { label: 'Pear', value: 'Pear' },
+            { label: 'Orange', value: 'Orange', disabled: true },
+          ],
+        },
+      },
     ];
   }
   submit() {
     if (this.form.valid) {
-      console.log(JSON.stringify(this.model));
+      console.log('this.model: ', this.model);
     }
   }
 }

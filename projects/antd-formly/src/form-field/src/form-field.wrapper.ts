@@ -35,7 +35,7 @@ const DEFAULT_WRAPPER_COL = 16;
             [nzRequired]="to.required && to.hideRequiredMarker !== true"
             [nzSpan]="labelCol"
             [nzTooltipTitle]="to.tooltipTitle"
-            [nzTooltipIcon]="to.tooltipIcon"
+            [nzTooltipIcon]="to.tooltipIcon || 'exclamation-circle'"
             >{{ to.label }}
           </nz-form-label>
         </ng-container>
