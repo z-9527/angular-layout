@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormlyFormFieldModule } from './form-field';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -10,7 +10,7 @@ const icons: IconDefinition[] = [CloseCircleFill];
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ReactiveFormsModule, NzIconModule.forChild(icons)],
-  exports: [CommonModule, ReactiveFormsModule, FormlyFormFieldModule, NzIconModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, NzIconModule.forChild(icons)],
+  exports: [CommonModule, ReactiveFormsModule, FormlyFormFieldModule, FormsModule, NzIconModule],
 })
 export class SharedModule {}

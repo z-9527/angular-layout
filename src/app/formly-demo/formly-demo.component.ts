@@ -20,7 +20,6 @@ export class FormlyDemoComponent implements OnInit {
   //   },
   // };
   fields: FormlyFieldConfig[] = [];
-
   constructor() {}
 
   ngOnInit(): void {
@@ -167,6 +166,18 @@ export class FormlyDemoComponent implements OnInit {
             { label: 'Apple', value: 'Apple' },
             { label: 'Pear', value: 'Pear' },
             { label: 'Orange', value: 'Orange', disabled: true },
+          ],
+        },
+      },
+      {
+        key: 'checkbox',
+        type: 'checkbox',
+        templateOptions: {
+          label: 'checkbox',
+          options: [
+            { label: 'Apple', value: 'Apple' },
+            { label: 'Pear', value: 'Pear' },
+            { label: 'Orange', value: 'Orange' },
           ],
         },
       },
