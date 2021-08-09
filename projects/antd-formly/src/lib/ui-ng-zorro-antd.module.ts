@@ -6,6 +6,7 @@ import { FormlyNzRadioModule } from '../radio';
 import { FormlyNzCheckboxModule } from '../checkbox';
 import { FormlyNzSwitchModule } from '../switch';
 import { FormlyNzTreeSelectModule } from '../tree-select';
+import { FormlyNzUploadModule } from '../upload';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { FormlyNzTreeSelectModule } from '../tree-select';
     FormlyNzCheckboxModule,
     FormlyNzSwitchModule,
     FormlyNzTreeSelectModule,
+    FormlyNzUploadModule,
   ],
 })
 export class FormlyNgZorroAntdModule {}

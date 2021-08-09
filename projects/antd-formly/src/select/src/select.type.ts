@@ -29,7 +29,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
       [nzServerSearch]="to.serverSearch || !!to.queryOptions"
       [nzFilterOption]="to.filterOption"
       [nzMaxMultipleCount]="to.maxMultipleCount"
-      [nzMode]="to.mode"
+      [nzMode]="to.multiple ? 'multiple' : to.mode"
       [nzPlaceHolder]="to.placeholder"
       [nzShowSearch]="to.showSearch || !!to.queryOptions"
       [nzSize]="to.size"

@@ -83,7 +83,7 @@ export class FormlyDemoComponent implements OnInit {
             { label: 'Option 2', value: '2' },
             { label: 'Option 3', value: '3' },
           ]),
-          mode: 'multiple',
+          multiple: true,
         },
       },
       {
@@ -252,6 +252,13 @@ export class FormlyDemoComponent implements OnInit {
               ],
             },
           ],
+        },
+      },
+      {
+        key: 'upload',
+        type: 'upload',
+        templateOptions: {
+          label: 'upload',
         },
       },
     ];

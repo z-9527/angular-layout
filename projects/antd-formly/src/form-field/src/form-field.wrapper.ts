@@ -39,7 +39,12 @@ const DEFAULT_WRAPPER_COL = 16;
             >{{ to.label }}
           </nz-form-label>
         </ng-container>
-        <nz-form-control [nzValidateStatus]="errorState" [nzErrorTip]="errorTpl" [nzSpan]="wrapperCol">
+        <nz-form-control
+          [nzValidateStatus]="errorState"
+          [nzErrorTip]="errorTpl"
+          [nzSpan]="wrapperCol"
+          [nzExtra]="extraRef"
+        >
           <div nz-row>
             <div style="flex: 1;">
               <ng-container #fieldComponent></ng-container>
@@ -66,13 +71,13 @@ export class FormlyWrapperFormField extends FieldWrapper {
     return this.to.cols ?? this.formState.cols ?? DEFAULT_COLS;
   }
   get labelCol() {
-    if (this.formState.vertical) {
+    if (this.vertical) {
       return 24;
     }
     return this.to.labelCol ?? this.formState.labelCol ?? DEFAULT_LABEL_COL;
   }
   get wrapperCol() {
-    if (this.formState.vertical) {
+    if (this.vertical) {
       return 24;
     }
     return this.to.wrapperCol ?? this.formState.wrapperCol ?? DEFAULT_WRAPPER_COL;
@@ -81,13 +86,25 @@ export class FormlyWrapperFormField extends FieldWrapper {
   get itemClass() {
     return {
       'item-wrap': true,
-      'item-vertical': this.formState.vertical,
+      'item-vertical': this.vertical,
       [this.to.itemClassName]: this.to.itemClassName || this.formState.itemClassName,
     };
+  }
+
+  get vertical() {
+    if (this.formState?.vertical === undefined) {
+      return true;
+    }
+    return this.formState?.vertical;
   }
 
   get afterRef() {
     const { templateRefs = {} } = this.formState;
     return templateRefs[this.to.afterRef] || this.to.after;
+  }
+
+  get extraRef() {
+    const { templateRefs = {} } = this.formState;
+    return templateRefs[this.to.extraRef] || this.to.extra;
   }
 }
