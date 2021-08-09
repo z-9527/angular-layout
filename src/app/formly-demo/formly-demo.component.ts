@@ -188,6 +188,72 @@ export class FormlyDemoComponent implements OnInit {
           label: 'switch',
         },
       },
+      {
+        key: 'tree-select',
+        type: 'tree-select',
+        templateOptions: {
+          label: 'tree-select',
+          nodes: [
+            {
+              title: 'parent 1',
+              key: '100',
+              children: [
+                {
+                  title: 'parent 1-0',
+                  key: '1001',
+                  children: [
+                    { title: 'leaf 1-0-0', key: '10010', isLeaf: true },
+                    { title: 'leaf 1-0-1', key: '10011', isLeaf: true },
+                  ],
+                },
+                {
+                  title: 'parent 1-1',
+                  key: '1002',
+                  children: [{ title: 'leaf 1-1-0', key: '10020', isLeaf: true }],
+                },
+              ],
+            },
+            {
+              title: 'parent 1',
+              key: '200',
+              children: [
+                {
+                  title: 'parent 1-0',
+                  key: '2001',
+                  children: [
+                    { title: 'leaf 1-0-0', key: '20010', isLeaf: true },
+                    { title: 'leaf 1-0-1', key: '20011', isLeaf: true },
+                  ],
+                },
+                {
+                  title: 'parent 1-1',
+                  key: '2002',
+                  children: [{ title: 'leaf 1-1-0', key: '20020', isLeaf: true }],
+                },
+              ],
+            },
+            {
+              title: 'parent 1',
+              key: '300',
+              children: [
+                {
+                  title: 'parent 1-0',
+                  key: '3001',
+                  children: [
+                    { title: 'leaf 1-0-0', key: '30010', isLeaf: true },
+                    { title: 'leaf 1-0-1', key: '30011', isLeaf: true },
+                  ],
+                },
+                {
+                  title: 'parent 1-1',
+                  key: '3002',
+                  children: [{ title: 'leaf 1-1-0', key: '30020', isLeaf: true }],
+                },
+              ],
+            },
+          ],
+        },
+      },
     ];
   }
   submit() {
