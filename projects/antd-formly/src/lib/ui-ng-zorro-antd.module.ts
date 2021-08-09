@@ -4,6 +4,7 @@ import { FormlyNzSelectModule } from '../select';
 import { FormlyNzCascaderModule } from '../cascader';
 import { FormlyNzRadioModule } from '../radio';
 import { FormlyNzCheckboxModule } from '../checkbox';
+import { FormlyNzSwitchModule } from '../switch';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { FormlyNzCheckboxModule } from '../checkbox';
     FormlyNzCascaderModule,
     FormlyNzRadioModule,
     FormlyNzCheckboxModule,
+    FormlyNzSwitchModule,
   ],
 })
 export class FormlyNgZorroAntdModule {}

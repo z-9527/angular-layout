@@ -181,6 +181,13 @@ export class FormlyDemoComponent implements OnInit {
           ],
         },
       },
+      {
+        key: 'switch',
+        type: 'switch',
+        templateOptions: {
+          label: 'switch',
+        },
+      },
     ];
   }
   submit() {
