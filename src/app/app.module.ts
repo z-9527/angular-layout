@@ -12,9 +12,7 @@ const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
 // eslint-disable-next-line no-unused-vars
-const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
-  (key) => antDesignIcons[key]
-);
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key) => antDesignIcons[key]);
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],

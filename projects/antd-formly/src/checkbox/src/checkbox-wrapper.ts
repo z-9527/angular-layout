@@ -34,7 +34,7 @@ interface CheckBoxOptionInterface extends NzCheckBoxOptionInterface {
 export class NzCheckboxLayoutComponent implements ControlValueAccessor {
   @Input() options: CheckBoxOptionInterface[] = [];
   _value: string[] = [];
-  _onChange;
+  _onChange = (_v: string[]) => {};
   _disabled = false;
   writeValue(v: string[]): void {
     this._value = v;

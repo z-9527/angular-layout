@@ -259,6 +259,13 @@ export class FormlyDemoComponent implements OnInit {
         type: 'upload',
         templateOptions: {
           label: 'upload',
+          action: '/upload',
+          formatResponse: (res) => ({
+            ...res,
+            status: 'done',
+            name: res.name || res.filename,
+            uid: res.uid || res.url,
+          }),
         },
       },
     ];

@@ -7,13 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyNgZorroAntdModule } from 'antd-formly';
 import { FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { IconDefinition } from '@ant-design/icons-angular';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import * as AllIcons from '@ant-design/icons-angular/icons';
-const antDesignIcons = AllIcons as {
-  [key: string]: IconDefinition;
-};
-const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key) => antDesignIcons[key]);
 
 @NgModule({
   declarations: [FormlyDemoComponent],
@@ -24,7 +17,6 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key) => antDesi
     FormlyNgZorroAntdModule,
     FormlyModule.forRoot(),
     NzButtonModule,
-    NzIconModule.forRoot(icons),
   ],
 })
 export class FormlyDemoModule {}

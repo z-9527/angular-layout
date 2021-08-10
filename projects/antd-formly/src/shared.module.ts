@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormlyFormFieldModule } from './form-field';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { CloseCircleFill } from '@ant-design/icons-angular/icons';
+import { CloseCircleFill, DeleteOutline, DownloadOutline, PlusOutline } from '@ant-design/icons-angular/icons';
 
-const icons: IconDefinition[] = [CloseCircleFill];
+const icons: IconDefinition[] = [CloseCircleFill, DeleteOutline, DownloadOutline, PlusOutline];
 
 @NgModule({
   declarations: [],

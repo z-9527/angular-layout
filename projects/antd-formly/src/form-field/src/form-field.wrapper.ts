@@ -46,7 +46,7 @@ const DEFAULT_WRAPPER_COL = 16;
           [nzExtra]="extraRef"
         >
           <div nz-row>
-            <div style="flex: 1;">
+            <div style="flex: 1;width:100%">
               <ng-container #fieldComponent></ng-container>
             </div>
             <div>
