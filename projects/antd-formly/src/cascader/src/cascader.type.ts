@@ -34,7 +34,7 @@ import { map } from 'rxjs/operators';
       [nzNotFoundContent]="to.notFoundContent"
       [nzOptionRender]="getRef(to.optionRenderRef) || to.optionRender"
       [nzOptions]="to.options"
-      [nzPlaceHolder]="to.placeHolder"
+      [nzPlaceHolder]="to.placeholder"
       [nzShowArrow]="to.showArrow"
       [nzShowInput]="to.showInput"
       [nzShowSearch]="to.showSearch"

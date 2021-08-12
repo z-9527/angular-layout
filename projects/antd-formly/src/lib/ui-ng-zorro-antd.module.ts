@@ -8,6 +8,8 @@ import { FormlyNzSwitchModule } from '../switch';
 import { FormlyNzTreeSelectModule } from '../tree-select';
 import { FormlyNzUploadModule } from '../upload';
 import { FormlyNzDateModule } from '../date';
+import { FormlyNzTimeModule } from '../time';
+
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
@@ -23,6 +25,7 @@ registerLocaleData(zh);
     FormlyNzTreeSelectModule,
     FormlyNzUploadModule,
     FormlyNzDateModule,
+    FormlyNzTimeModule,
   ],
 })
 export class FormlyNgZorroAntdModule {}
