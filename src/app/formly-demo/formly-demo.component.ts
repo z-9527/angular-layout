@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-formly-demo',
@@ -48,14 +49,6 @@ export class FormlyDemoComponent implements OnInit {
         },
       },
       {
-        key: 'firstName3',
-        type: 'input',
-        templateOptions: {
-          label: 'firstName3',
-          suffixRef: 'search',
-        },
-      },
-      {
         key: 'number',
         type: 'number',
         templateOptions: {
@@ -74,30 +67,14 @@ export class FormlyDemoComponent implements OnInit {
         },
       },
       {
-        key: 'm-select',
-        type: 'select',
-        templateOptions: {
-          label: 'm-select',
-          options: of([
-            { label: 'Option 1', value: '1' },
-            { label: 'Option 2', value: '2' },
-            { label: 'Option 3', value: '3' },
-          ]),
-          multiple: true,
-        },
-      },
-      {
-        key: 's-select',
+        key: 'search-select',
         type: 'select',
         defaultValue: '0',
         templateOptions: {
-          label: 's-select',
+          label: 'search-select',
           // mode: 'multiple',
           options: [{ label: 'Option 0', value: '0' }],
-          queryOptions: (v) => {
-            console.log('v: ', v);
-            return of([{ label: `Option ${v}`, value: v }]);
-          },
+          queryOptions: (v) => of([{ label: `Option ${v}`, value: v }]),
         },
       },
       {
@@ -268,11 +245,33 @@ export class FormlyDemoComponent implements OnInit {
           }),
         },
       },
+      {
+        key: 'date',
+        type: 'date',
+        templateOptions: {
+          label: 'date',
+        },
+      },
+      {
+        key: 'date-range',
+        type: 'date',
+        templateOptions: {
+          label: 'date-range',
+          range: true,
+        },
+      },
     ];
   }
   submit() {
     if (this.form.valid) {
-      console.log('this.model: ', this.model);
+      let params = { ...this.model };
+      params.date = params.date && dayjs(params.date).format('YYYY-MM-DD HH:mm:ss');
+
+      [params.startTime, params.endTime] = params['date-range'] || [];
+      params.startTime = params.startTime && dayjs(params.startTime).format('YYYY-MM-DD HH:mm:ss');
+      params.endTime = params.endTime && dayjs(params.endTime).format('YYYY-MM-DD HH:mm:ss');
+
+      console.log('params: ', params);
     }
   }
 }

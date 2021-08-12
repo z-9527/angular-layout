@@ -1,13 +1,13 @@
 <div style="margin: 12px; background-color: #fff; padding: 12px">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <formly-form
+      [form]="form"
       [model]="model"
       [fields]="fields"
       [options]="{
         formState: {
           templateRefs: {
             btnRef: btnRef,
-            search: search,
             renderTpl: renderTpl
           }
         }
@@ -20,10 +20,6 @@
 
 <ng-template #btnRef>
   <div style="line-height: 32px; margin-left: 10px"><a>新增</a></div>
-</ng-template>
-
-<ng-template #search>
-  <i nz-icon nzType="search"></i>
 </ng-template>
 
 <ng-template #renderTpl let-option let-index="index"

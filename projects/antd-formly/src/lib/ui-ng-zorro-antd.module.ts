@@ -7,6 +7,10 @@ import { FormlyNzCheckboxModule } from '../checkbox';
 import { FormlyNzSwitchModule } from '../switch';
 import { FormlyNzTreeSelectModule } from '../tree-select';
 import { FormlyNzUploadModule } from '../upload';
+import { FormlyNzDateModule } from '../date';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 
 @NgModule({
   imports: [
@@ -18,6 +22,7 @@ import { FormlyNzUploadModule } from '../upload';
     FormlyNzSwitchModule,
     FormlyNzTreeSelectModule,
     FormlyNzUploadModule,
+    FormlyNzDateModule,
   ],
 })
 export class FormlyNgZorroAntdModule {}
