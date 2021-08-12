@@ -271,6 +271,7 @@ export class FormlyDemoComponent implements OnInit {
       params.startTime = params.startTime && dayjs(params.startTime).format('YYYY-MM-DD HH:mm:ss');
       params.endTime = params.endTime && dayjs(params.endTime).format('YYYY-MM-DD HH:mm:ss');
 
+      delete params['date-range'];
       console.log('params: ', params);
     }
   }

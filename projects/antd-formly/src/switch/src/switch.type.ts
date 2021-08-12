@@ -11,6 +11,13 @@ import { FieldType } from '@ngx-formly/core';
     [nzUnCheckedChildren]="to.unCheckedChildren"
     [nzSize]="to.size"
     [nzLoading]="to.loading"
+    (ngModelChange)="onChange($event)"
   ></nz-switch>`,
 })
-export class FormlyFieldSwitch extends FieldType {}
+export class FormlyFieldSwitch extends FieldType {
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
+    }
+  }
+}

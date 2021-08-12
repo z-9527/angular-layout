@@ -43,6 +43,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
       (nzOnSearch)="onSearch($event)"
       (nzFocus)="to.focus && to.focus($event)"
       (nzBlur)="to.blur && to.blur($event)"
+      (ngModelChange)="onChange($event)"
     >
       <ng-container *ngFor="let item of optionList">
         <nz-option-group *ngIf="!isLoading && item.children" [nzLabel]="item.label">
@@ -136,6 +137,11 @@ export class FormlyFieldSelect extends FieldType implements OnInit {
     if (this.to.queryOptions) {
       this.isLoading = true;
       this.searchChange$.next(value);
+    }
+  }
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
     }
   }
 }

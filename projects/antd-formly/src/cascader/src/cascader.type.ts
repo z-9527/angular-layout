@@ -44,6 +44,7 @@ import { map } from 'rxjs/operators';
       (nzClear)="to.clear && to.clear()"
       (nzVisibleChange)="to.visibleChange && to.visibleChange($event)"
       (nzSelectionChange)="to.selectionChange && to.selectionChange($event)"
+      (ngModelChange)="onChange($event)"
     ></nz-cascader>
   `,
 })
@@ -143,5 +144,10 @@ export class FormlyFieldCascader extends FieldType {
         item.adcode === code
       );
     });
+  }
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
+    }
   }
 }

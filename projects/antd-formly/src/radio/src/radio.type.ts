@@ -15,6 +15,7 @@ import { FieldType } from '@ngx-formly/core';
       [nzName]="to.name"
       [nzSize]="to.size"
       [nzButtonStyle]="to.buttonStyle"
+      (ngModelChange)="onChange($event)"
     >
       <ng-container *ngIf="to.type === 'radio'">
         <label nz-radio [nzValue]="o.value" *ngFor="let o of to.options" [nzDisabled]="o.disabled">{{ o.label }}</label>
@@ -34,4 +35,9 @@ export class FormlyFieldRadio extends FieldType {
       type: 'radio',
     },
   };
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
+    }
+  }
 }

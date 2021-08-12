@@ -30,6 +30,7 @@ import { FieldType } from '@ngx-formly/core';
         [nzId]="to.id"
         (nzFocus)="to.focus && to.focus($event)"
         (nzBlur)="to.blur && to.blur($event)"
+        (ngModelChange)="onChange($event)"
       ></nz-input-number>
 
       <ng-container *ngSwitchCase="'textarea'">
@@ -40,6 +41,7 @@ import { FieldType } from '@ngx-formly/core';
             [formlyAttributes]="field"
             [rows]="to.rows"
             [maxLength]="to.maxLength"
+            (ngModelChange)="onChange($event)"
           ></textarea>
         </nz-textarea-count>
         <ng-template #textareaRef>
@@ -49,6 +51,7 @@ import { FieldType } from '@ngx-formly/core';
             [formlyAttributes]="field"
             [rows]="to.rows"
             [maxLength]="to.maxLength"
+            (ngModelChange)="onChange($event)"
           ></textarea>
         </ng-template>
       </ng-container>
@@ -70,6 +73,7 @@ import { FieldType } from '@ngx-formly/core';
           [formControl]="formControl"
           [formlyAttributes]="field"
           [nzBorderless]="to.borderless"
+          (ngModelChange)="onChange($event)"
         />
       </nz-input-group>
       <ng-template #clearRef>
@@ -90,5 +94,11 @@ export class FormlyFieldInput extends FieldType {
   getRef(ref) {
     const { templateRefs = {} } = this.formState;
     return templateRefs[ref];
+  }
+
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
+    }
   }
 }

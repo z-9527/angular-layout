@@ -35,6 +35,7 @@ import { FieldType } from '@ngx-formly/core';
         [nzShowToday]="to.showToday"
         [nzShowNow]="to.showNow"
         (nzOnOk)="to.onOk && to.onOk($event)"
+        (ngModelChange)="onChange($event)"
       ></nz-date-picker>
       <nz-range-picker
         *ngIf="to.range"
@@ -66,6 +67,7 @@ import { FieldType } from '@ngx-formly/core';
         [nzShowTime]="to.showTime"
         [nzDisabledTime]="to.disabledTime"
         (nzOnOk)="to.onOk && to.onOk($event)"
+        (ngModelChange)="onChange($event)"
       ></nz-range-picker>
     </ng-container>
   `,
@@ -79,4 +81,9 @@ export class FormlyFieldDate extends FieldType {
       showNow: true,
     },
   };
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
+    }
+  }
 }

@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 
+/**
+ * onChange 上传值变化时触发
+ * nzChange 上传状态改变时触发
+ */
+
 @Component({
   selector: 'formly-field-nz-upload',
   template: ` <nz-upload-base
@@ -36,6 +41,8 @@ import { FieldType } from '@ngx-formly/core';
     [transformFile]="to.transformFile"
     [iconRender]="to.iconRender"
     [fileListRender]="to.fileListRender"
+    (ngModelChange)="onChange($event)"
+    (nzChange)="to.nzChange && to.nzChange($event)"
   ></nz-upload-base>`,
 })
 export class FormlyFieldUpload extends FieldType {
@@ -53,4 +60,9 @@ export class FormlyFieldUpload extends FieldType {
       formatResponse: (res) => res,
     },
   };
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
+    }
+  }
 }

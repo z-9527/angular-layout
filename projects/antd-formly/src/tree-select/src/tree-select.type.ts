@@ -35,6 +35,7 @@ import { FieldType } from '@ngx-formly/core';
       [nzVirtualMinBufferPx]="to.virtualMinBufferPx"
       [nzBackdrop]="to.backdrop"
       (nzExpandChange)="to.expandChange && to.expandChange($event)"
+      (ngModelChange)="onChange($event)"
     ></nz-tree-select>
   `,
 })
@@ -58,4 +59,9 @@ export class FormlyFieldTreeSelect extends FieldType {
       },
     },
   };
+  onChange(value) {
+    if (this.to.onChange) {
+      this.to.onChange(value, this.field);
+    }
+  }
 }
