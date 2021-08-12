@@ -28,7 +28,7 @@ import { Observable, Subscription } from 'rxjs';
     [nzBeforeUpload]="beforeUpload"
     [nzCustomRequest]="customRequest"
     [nzData]="data"
-    [nzDisabled]="disabled"
+    [nzDisabled]="_disabled"
     [nzFileList]="_value || fileList"
     [nzLimit]="limit"
     [nzSize]="size"
@@ -52,7 +52,7 @@ import { Observable, Subscription } from 'rxjs';
     [nzFileListRender]="fileListRender"
     (nzChange)="handleChange($event)"
   >
-    <button *ngIf="listType !== 'picture-card'" nz-button type="button" [disabled]="disabled">
+    <button *ngIf="listType !== 'picture-card'" nz-button type="button" [disabled]="_disabled">
       <i nz-icon nzType="upload"></i>
       {{ text }}
     </button>
@@ -77,7 +77,6 @@ export class NzUploadBaseComponent implements ControlValueAccessor {
   @Input() beforeUpload: (file: NzUploadFile, fileList: NzUploadFile[]) => boolean | Observable<boolean>;
   @Input() customRequest?: (item: NzUploadXHRArgs) => Subscription;
   @Input() data?: {} | ((file: NzUploadFile) => {} | Observable<{}>);
-  @Input() disabled? = false;
   @Input() fileList?: NzUploadFile[] = [];
   @Input() limit? = 0;
   @Input() size? = 0;
@@ -103,6 +102,7 @@ export class NzUploadBaseComponent implements ControlValueAccessor {
   @Output() readonly nzChange: EventEmitter<NzUploadChangeParam> = new EventEmitter<NzUploadChangeParam>();
 
   _value: NzUploadFile[] = [];
+  _disabled = false;
   _onChange = (v: NzUploadFile[]) => {};
   writeValue(v: NzUploadFile[]): void {
     this._value = Array.isArray(v) ? v.map((item) => this.formatResponse(item)) : v;
@@ -111,7 +111,9 @@ export class NzUploadBaseComponent implements ControlValueAccessor {
     this._onChange = fn;
   }
   registerOnTouched(_fn: any): void {}
-  setDisabledState(isDisabled: boolean): void {}
+  setDisabledState(isDisabled: boolean): void {
+    this._disabled = isDisabled;
+  }
 
   handleChange(event: NzUploadChangeParam) {
     this.nzChange.emit(event);

@@ -6,7 +6,7 @@ import { FieldType } from '@ngx-formly/core';
   template: ` <nz-switch
     [formControl]="formControl"
     [formlyAttributes]="field"
-    [disabled]="to.disabled"
+    [nzDisabled]="to.disabled"
     [nzCheckedChildren]="to.checkedChildren"
     [nzUnCheckedChildren]="to.unCheckedChildren"
     [nzSize]="to.size"

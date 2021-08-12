@@ -14,7 +14,7 @@ import { FieldType } from '@ngx-formly/core';
     [beforeUpload]="to.beforeUpload"
     [beforeUpload]="to.beforeUpload"
     [data]="to.data"
-    [disabled]="to.disabled"
+    [attr.disabled]="to.disabled"
     [fileList]="to.fileList"
     [limit]="to.limit"
     [size]="to.size"

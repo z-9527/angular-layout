@@ -8,7 +8,7 @@ import { FieldType } from '@ngx-formly/core';
       [formControl]="formControl"
       [formlyAttributes]="field"
       [options]="to.options"
-      [disabled]="to.disabled"
+      [attr.disabled]="to.disabled"
     ></nz-checkbox-layout>
   `,
 })

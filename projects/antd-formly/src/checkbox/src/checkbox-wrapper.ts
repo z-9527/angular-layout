@@ -16,7 +16,7 @@ interface CheckBoxOptionInterface extends NzCheckBoxOptionInterface {
             nz-checkbox
             [nzValue]="item.value"
             [ngModel]="_value?.includes(item.value)"
-            [disabled]="_disabled || item.disabled"
+            [nzDisabled]="_disabled || item.disabled"
             >{{ item.label }}</label
           >
         </div>
