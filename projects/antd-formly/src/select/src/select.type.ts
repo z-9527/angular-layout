@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
+import * as _ from 'lodash';
 
 /**
  * 使用ngTemplateOutlet来生成option时，group不显示所以不能用模板来生成
@@ -108,7 +109,7 @@ export class FormlyFieldSelect extends FieldType implements OnInit {
 
     this.getOptions(value);
   }
-  getOptions(value?) {
+  getOptions = _.debounce((value?) => {
     if (typeof this.to.queryOptions !== 'function') {
       return;
     }
@@ -122,7 +123,7 @@ export class FormlyFieldSelect extends FieldType implements OnInit {
     } else {
       this.to.options = res;
     }
-  }
+  }, 300);
   onChange(value) {
     if (this.to.onChange) {
       this.to.onChange(value, this.field);
