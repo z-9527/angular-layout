@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
-import { createLabelArr } from '../../utils';
+import { Observable } from 'rxjs';
 
 /**
  * 基础angtd autocompleteAPI
  * 新增options array 下拉数组
- * 新增queryOptions   搜索options函数，返回Observable<array>或数组
+ * 新增queryOptions   搜索options函数，返回Observable
  */
 @Component({
   selector: 'formly-field-nz-autocomplete',
@@ -32,7 +30,11 @@ import { createLabelArr } from '../../utils';
         [compareWith]="to.compareWith"
       >
         <ng-container *ngIf="!isLoading">
-          <nz-auto-option *ngFor="let option of optionList" [nzValue]="option.value" [nzLabel]="option.label">
+          <nz-auto-option
+            *ngFor="let option of to.options | formlySelectOptions | async"
+            [nzValue]="option.value"
+            [nzLabel]="option.label"
+          >
             {{ option.label }}
           </nz-auto-option>
         </ng-container>
@@ -44,7 +46,7 @@ import { createLabelArr } from '../../utils';
     </div>
   `,
 })
-export class FormlyFieldAutocomplete extends FieldType {
+export class FormlyFieldAutocomplete extends FieldType implements OnInit {
   defaultOptions = {
     templateOptions: {
       options: [],
@@ -53,40 +55,10 @@ export class FormlyFieldAutocomplete extends FieldType {
       compareWith: (o1, o2) => o1 === o2,
     },
   };
-
-  searchChange$: BehaviorSubject<string>;
-  optionList: string[] = [];
   isLoading = false;
-  emptySearch = false; //值为空时是否也发请求
 
   ngOnInit(): void {
-    this.searchChange$ = new BehaviorSubject(this.model[this.field.key as string] || '');
-    const optionList$: Observable<string[]> = this.searchChange$
-      .asObservable()
-      .pipe(debounceTime(500))
-      .pipe(
-        switchMap((v) => {
-          if (this.to.queryOptions) {
-            const res = this.to.queryOptions(v);
-            return res instanceof Observable ? res : of(res);
-          }
-          return of(undefined);
-        })
-      );
-    optionList$.subscribe((data) => {
-      if (data) {
-        this.optionList = createLabelArr(data);
-      }
-      this.isLoading = false;
-    });
-
-    if (Array.isArray(this.to.options)) {
-      this.optionList = createLabelArr(this.to.options);
-    } else if (this.to.options instanceof Observable) {
-      this.to.options.subscribe((res) => {
-        this.optionList = createLabelArr(res);
-      });
-    }
+    this.getOptions(this.model[this.field.key as string] || '');
   }
   onInput(event) {
     const value = event.target.value;
@@ -96,9 +68,22 @@ export class FormlyFieldAutocomplete extends FieldType {
     if (!value && !this.to.emptySearch) {
       return;
     }
-    if (this.to.queryOptions) {
+
+    this.getOptions(value);
+  }
+  getOptions(value?) {
+    if (typeof this.to.queryOptions !== 'function') {
+      return;
+    }
+    const res = this.to.queryOptions(value);
+    if (res instanceof Observable) {
       this.isLoading = true;
-      this.searchChange$.next(value);
+      res.subscribe((result) => {
+        this.to.options = result;
+        this.isLoading = false;
+      });
+    } else {
+      this.to.options = res;
     }
   }
   onChange(value) {
