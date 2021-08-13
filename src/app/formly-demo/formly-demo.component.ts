@@ -260,7 +260,22 @@ export class FormlyDemoComponent implements OnInit {
           range: true,
         },
       },
+      {
+        key: 'autocomplete',
+        type: 'autocomplete',
+        templateOptions: {
+          label: 'autocomplete',
+          tooltipTitle: '和select的区别是既能保留输入值又能选择',
+          queryOptions: (value) => (value ? [value, value + value, value + value + value] : []),
+        },
+      },
     ];
+
+    const filed = this.fields.find((item) => item.key === 'select');
+    setTimeout(() => {
+      filed.templateOptions.options = [{ label: '333', value: '333' }];
+      console.log(333);
+    }, 3000);
   }
   submit() {
     if (this.form.valid) {

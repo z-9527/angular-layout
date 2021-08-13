@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { createLabelArr } from '../../utils';
 
 /**
  * 使用ngTemplateOutlet来生成option时，group不显示所以不能用模板来生成
  *
  * 继承antd selectAPI
- * 新增queryOptions   搜索options函数，返回Observable对象
+ * 新增queryOptions   搜索options函数，返回Observable<array>或数组
  */
 
 @Component({
@@ -107,23 +108,24 @@ export class FormlyFieldSelect extends FieldType implements OnInit {
       .pipe(
         switchMap((v) => {
           if (this.to.queryOptions) {
-            return this.to.queryOptions(v) as Observable<string[]>;
+            const res = this.to.queryOptions(v);
+            return res instanceof Observable ? res : of(res);
           }
           return of(undefined);
         })
       );
     optionList$.subscribe((data) => {
       if (data) {
-        this.optionList = data;
+        this.optionList = createLabelArr(data);
       }
       this.isLoading = false;
     });
 
     if (Array.isArray(this.to.options)) {
-      this.optionList = this.to.options;
+      this.optionList = createLabelArr(this.to.options);
     } else if (this.to.options instanceof Observable) {
       this.to.options.subscribe((res) => {
-        this.optionList = res;
+        this.optionList = createLabelArr(res);
       });
     }
   }

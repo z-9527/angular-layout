@@ -9,6 +9,7 @@ import { FormlyNzTreeSelectModule } from '../tree-select';
 import { FormlyNzUploadModule } from '../upload';
 import { FormlyNzDateModule } from '../date';
 import { FormlyNzTimeModule } from '../time';
+import { FormlyNzAutocompleteModule } from '../autocomplete';
 
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -26,6 +27,7 @@ registerLocaleData(zh);
     FormlyNzUploadModule,
     FormlyNzDateModule,
     FormlyNzTimeModule,
+    FormlyNzAutocompleteModule,
   ],
 })
 export class FormlyNgZorroAntdModule {}
