@@ -60,12 +60,14 @@ export class TableComponent implements OnInit, OnChanges {
   fullscreen = false;
 
   ngOnInit(): void {
-    this._queryList({
-      pageIndex: this.nzPagination.pageIndex || 1,
-      pageSize: this.nzPagination.pageSize || 10,
-      sort: undefined,
-      filter: undefined,
-    });
+    if (this.nzFrontPagination) {
+      this._queryList({
+        pageIndex: this.nzPagination.pageIndex || 1,
+        pageSize: this.nzPagination.pageSize || 10,
+        sort: undefined,
+        filter: undefined,
+      });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
