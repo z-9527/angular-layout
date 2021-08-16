@@ -10,7 +10,12 @@
         <div class="info-table-row">
           <ng-container *ngIf="isArray(row)">
             <ng-container *ngFor="let field of row">
-              <div class="info-table-field">
+              <div
+                class="info-table-field"
+                *ngIf="
+                  field.hideExpression ? !field.hideExpression(nzData) : true
+                "
+              >
                 <div class="field-label" [style.width]="nzLabelWidth">
                   {{ field.label }}
                 </div>

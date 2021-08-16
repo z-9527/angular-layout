@@ -10,4 +10,5 @@ export interface IField extends Record<string, any> {
   ellipsis?: boolean;
   type?: 'link' | 'date';
   link?: (_data, _key: string) => string;
+  hideExpression?: (_data) => boolean;
 }

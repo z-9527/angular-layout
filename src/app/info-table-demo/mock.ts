@@ -18,8 +18,9 @@ export const config: IField[][] = [
   ],
   [
     {
-      label: '时间',
-      key: 'date',
+      label: '是否隐藏',
+      key: 'name',
+      hideExpression: (data) => !data.show,
     },
   ],
   [
@@ -44,6 +45,8 @@ export const data = {
   code2: '2039258',
   date: 1612162465000,
   test: 'abc',
+  name: '不隐藏',
+  show: true,
   age: 22,
   link: 'www.baidu.com',
   content: `2021年2月的夜空中，最引人注目的是天狼星。它是全天最亮的恒星，天黑之后，在东南方天空中闪烁着蓝白色的光芒。它和北边的两颗亮星组成一个等边三角形，
