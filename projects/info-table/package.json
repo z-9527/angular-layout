@@ -7,6 +7,7 @@
     "ng-zorro-antd": "^11.4.1"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "dayjs": "^1.10.6"
   }
 }

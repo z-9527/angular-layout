@@ -104,6 +104,7 @@ export class TableDemoComponent implements OnInit {
           address: `@county(true)`,
           link: 'www.baidu.com',
           column: 'column',
+          time: Date.now(),
         },
       ],
     });

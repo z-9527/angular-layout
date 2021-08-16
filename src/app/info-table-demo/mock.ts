@@ -12,7 +12,10 @@ export const config: IField[][] = [
       key: 'code',
     },
   ],
-  [{ label: '住所', key: 'address' }],
+  [
+    { label: '住所', key: 'address' },
+    { label: '时间', key: 'date', type: 'date' },
+  ],
   [
     {
       label: '时间',
@@ -24,7 +27,7 @@ export const config: IField[][] = [
     {
       label: '网址',
       key: 'link',
-      link: true,
+      type: 'link',
       // link:(data,key)=>'www.google.com'
     },
   ],

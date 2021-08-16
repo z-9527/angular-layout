@@ -5,8 +5,7 @@ export const dataSource = [
     key: '1',
     name: '胡彦斌',
     age: 32,
-    address:
-      '西湖区湖底公园1号放大辣椒放垃圾分类看解放啦开始的减肥离开家撒地方',
+    address: '西湖区湖底公园1号放大辣椒放垃圾分类看解放啦开始的减肥离开家撒地方',
   },
   {
     key: '2',
@@ -22,9 +21,7 @@ export const columns: INzColumn[] = [
     dataIndex: 'number',
     fixed: 'left',
     showSort: true,
-    sortFn: (a, b) => {
-      return b.number - a.number;
-    },
+    sortFn: (a, b) => b.number - a.number,
   },
   {
     title: '姓名',
@@ -32,9 +29,7 @@ export const columns: INzColumn[] = [
     key: 'name',
     fixed: 'left',
     showSort: true,
-    sortFn: (a, b) => {
-      return a.name.localeCompare(b.name);
-    },
+    sortFn: (a, b) => a.name.localeCompare(b.name),
   },
   {
     title: '年龄',
@@ -53,10 +48,13 @@ export const columns: INzColumn[] = [
   {
     title: '链接',
     dataIndex: 'link',
-    link: true,
-    // link: (text, record, index) => {
-    //   return 'www.b.com';
-    // },
+    type: 'link',
+    // link: (text, record, index) => 'www.b.com', //可自定义link值
+  },
+  {
+    title: '时间',
+    dataIndex: 'time',
+    type: 'date',
   },
   {
     title: 'column1',

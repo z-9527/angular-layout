@@ -16,10 +16,11 @@ export interface INzColumn extends Record<string, any> {
   ref?: StringTemplateRef;
   format?: (_text: string, _record: any, _index: number) => string | number;
   className?: string;
-  width?: string;
+  width?: string | number;
   fixed?: 'right' | 'left';
   align?: 'right' | 'left' | 'center';
-  link?: boolean | ((_text: string, _record: any, _index: number) => string);
+  type?: 'link' | 'date';
+  link?: (_text: string, _record: any, _index: number) => string;
 
   showSort?: boolean;
   sortFn?: NzTableSortFn | boolean;
@@ -49,9 +50,5 @@ export interface INzRowSelection {
   selectedRowKeys?: string[] | number[];
   fixed?: boolean;
   onChange?: (_selectedRowKeys: any[]) => unknown;
-  onSelect?: (
-    _record: any,
-    _selected: boolean,
-    _selectedRowKeys: any[]
-  ) => unknown;
+  onSelect?: (_record: any, _selected: boolean, _selectedRowKeys: any[]) => unknown;
 }

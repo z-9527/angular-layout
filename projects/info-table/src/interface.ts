@@ -8,5 +8,6 @@ export interface IField extends Record<string, any> {
   ref?: StringTemplateRef;
   format?: (_data, _key: string) => string | number;
   ellipsis?: boolean;
-  link?: boolean | ((_data, _key: string) => string);
+  type?: 'link' | 'date';
+  link?: (_data, _key: string) => string;
 }

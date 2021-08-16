@@ -9,15 +9,11 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import {
-  INzColumn,
-  INzPagination,
-  INzRowSelection,
-  StringTemplateRef,
-} from '../interface';
+import { INzColumn, INzPagination, INzRowSelection, StringTemplateRef } from '../interface';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Observable } from 'rxjs';
 import { cloneDeep } from 'lodash';
+import * as dayjs from 'dayjs';
 
 export type SizeType = 'middle' | 'small' | 'default';
 
@@ -48,11 +44,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() nzShowRowSelection?: boolean = true;
   @Input() nzRowSelection?: INzRowSelection = {};
   @Input() nzHeader?: StringTemplateRef;
-  @Input() nzQueryList?: (
-    _param: NzTableQueryParams
-  ) => Observable<{ total: number; data: any[] }>; // 自定义请求的分页函数，必须返回Observable的对象
-  @Output() nzQueryParams?: EventEmitter<NzTableQueryParams> =
-    new EventEmitter();
+  @Input() nzQueryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>; // 自定义请求的分页函数，必须返回Observable的对象
+  @Output() nzQueryParams?: EventEmitter<NzTableQueryParams> = new EventEmitter();
 
   _columns: INzColumn[] = [];
   _initColumns: INzColumn[] = [];
@@ -100,8 +93,7 @@ export class TableComponent implements OnInit, OnChanges {
     // 因为JSON没有函数类型值，所以从源columns中获取其它值
     if (Array.isArray(cachesColumns)) {
       return cachesColumns.map((item) => {
-        const originColumn =
-          arr.find((subItem) => subItem.dataIndex === item.dataIndex) || item;
+        const originColumn = arr.find((subItem) => subItem.dataIndex === item.dataIndex) || item;
         return {
           ...originColumn,
           show: item.show,
@@ -113,15 +105,13 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   pageIndexChange(index) {
-    this.nzPagination.pageIndexChange &&
-      this.nzPagination.pageIndexChange(index);
+    this.nzPagination.pageIndexChange && this.nzPagination.pageIndexChange(index);
   }
   pageSizeChange(size) {
     this.nzPagination.pageSizeChange && this.nzPagination.pageSizeChange(size);
   }
   currentPageDataChange(currentData) {
-    this.nzPagination.currentPageDataChange &&
-      this.nzPagination.currentPageDataChange(currentData);
+    this.nzPagination.currentPageDataChange && this.nzPagination.currentPageDataChange(currentData);
 
     this.listOfCurrentPageData = currentData;
     this.refreshCheckedStatus();
@@ -142,8 +132,7 @@ export class TableComponent implements OnInit, OnChanges {
         this.updateCheckedSet(rowKey, checked);
       });
     this.refreshCheckedStatus();
-    this.nzRowSelection.onChange &&
-      this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
+    this.nzRowSelection.onChange && this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
   }
 
   updateCheckedSet(rowKey, checked: boolean): void {
@@ -157,28 +146,17 @@ export class TableComponent implements OnInit, OnChanges {
   onItemChecked(rowKey, checked, data) {
     this.updateCheckedSet(rowKey, checked);
     this.refreshCheckedStatus();
-    this.nzRowSelection.onSelect &&
-      this.nzRowSelection.onSelect(
-        data,
-        checked,
-        Array.from(this._selectedRowKeys)
-      );
-    this.nzRowSelection.onChange &&
-      this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
+    this.nzRowSelection.onSelect && this.nzRowSelection.onSelect(data, checked, Array.from(this._selectedRowKeys));
+    this.nzRowSelection.onChange && this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
   }
 
   refreshCheckedStatus(): void {
-    const listOfEnabledData = this.listOfCurrentPageData.filter(
-      ({ disabled }) => !disabled
-    );
+    const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
     this.checked =
-      listOfEnabledData.every((item) =>
-        this._selectedRowKeys.has(this.getRowKeyValue(item))
-      ) && listOfEnabledData.length > 0;
+      listOfEnabledData.every((item) => this._selectedRowKeys.has(this.getRowKeyValue(item))) &&
+      listOfEnabledData.length > 0;
     this.indeterminate =
-      listOfEnabledData.some((item) =>
-        this._selectedRowKeys.has(this.getRowKeyValue(item))
-      ) && !this.checked;
+      listOfEnabledData.some((item) => this._selectedRowKeys.has(this.getRowKeyValue(item))) && !this.checked;
   }
 
   changeSize(size) {
@@ -233,19 +211,30 @@ export class TableComponent implements OnInit, OnChanges {
       localStorage.setItem(this.tableKey, JSON.stringify(arr));
     }
   }
-  getText(data, item, index) {
-    return item.format
-      ? item.format(data[item.dataIndex], data, index)
-      : data[item.dataIndex];
+  getColumnWidth(column) {
+    const { width, type } = column;
+    if (typeof width === 'number') {
+      return `${width}px`;
+    }
+    if (typeof width === 'string') {
+      return width;
+    }
+    if (type === 'date') {
+      return '180px';
+    }
+  }
+  getText(data, column, index) {
+    const text = column.format ? column.format(data[column.dataIndex], data, index) : data[column.dataIndex];
+    if (column.type === 'date') {
+      return text && dayjs(text).format('YYYY-MM-DD HH:mm:ss');
+    }
+    return text;
   }
 
-  getLink(data, item, index) {
-    if (item.link === true) {
-      return data[item.dataIndex];
+  getLink(data, column, index) {
+    if (typeof column.link === 'function') {
+      return column.link(data[column.dataIndex], data, index);
     }
-    if (typeof item.link === 'function') {
-      return item.link(data[item.dataIndex], data, index);
-    }
-    return null;
+    return data[column.dataIndex];
   }
 }

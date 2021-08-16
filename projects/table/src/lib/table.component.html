@@ -60,7 +60,7 @@
             [nzFilterMultiple]="column.nzFilterMultiple"
             [nzFilterChange]="column.nzFilterChange"
             [nzColumnKey]="column.dataIndex"
-            [nzWidth]="column.width"
+            [nzWidth]="getColumnWidth(column)"
           >
             <ng-container
               *nzStringTemplateOutlet="
@@ -87,24 +87,24 @@
             "
           ></td>
         </ng-container>
-        <ng-container *ngFor="let item of _columns">
+        <ng-container *ngFor="let column of _columns">
           <td
-            *ngIf="item.show"
-            [class]="item.className"
-            [nzRight]="item.fixed === 'right'"
-            [nzLeft]="item.fixed === 'left'"
-            [nzAlign]="item.align"
+            *ngIf="column.show"
+            [class]="column.className"
+            [nzRight]="column.fixed === 'right'"
+            [nzLeft]="column.fixed === 'left'"
+            [nzAlign]="column.align"
           >
             <ng-container
               *ngTemplateOutlet="
                 tdRef;
                 context: {
-                  column: item,
+                  column: column,
                   data: data,
                   index: i,
-                  dataIndex: item.dataIndex,
-                  text: getText(data, item, i),
-                  linkUrl: getLink(data, item, i)
+                  dataIndex: column.dataIndex,
+                  text: getText(data, column, i),
+                  linkUrl: getLink(data, column, i)
                 }
               "
             ></ng-container>
@@ -157,13 +157,14 @@
       }
     "
   >
-    <div class="table-ellipsis" nz-tooltip [nzTooltipTitle]="text">
-      <ng-container *ngIf="column.link; else textRef">
-        <a [href]="linkUrl" target="_blank">{{ text }}</a>
-      </ng-container>
-      <ng-template #textRef>
-        {{ text }}
-      </ng-template>
+    <div
+      [ngSwitch]="column?.type"
+      class="table-ellipsis"
+      nz-tooltip
+      [nzTooltipTitle]="text"
+    >
+      <a *ngSwitchCase="'link'" [href]="linkUrl" target="_blank">{{ text }}</a>
+      <span *ngSwitchDefault>{{ text }}</span>
     </div>
   </ng-container>
 </ng-template>

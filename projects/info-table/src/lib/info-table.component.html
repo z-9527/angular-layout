@@ -9,20 +9,20 @@
       <ng-container *ngFor="let row of nzConfig">
         <div class="info-table-row">
           <ng-container *ngIf="isArray(row)">
-            <ng-container *ngFor="let item of row">
+            <ng-container *ngFor="let field of row">
               <div class="info-table-field">
                 <div class="field-label" [style.width]="nzLabelWidth">
-                  {{ item.label }}
+                  {{ field.label }}
                 </div>
                 <div class="field-value">
                   <ng-container
                     *ngTemplateOutlet="
                       fieldRef;
                       context: {
-                        ref: nzTemplateRefs[item.ref] || item.ref,
-                        text: getText(nzData, item),
-                        link: getLink(nzData, item),
-                        item: item,
+                        ref: nzTemplateRefs[field.ref] || field.ref,
+                        text: getText(nzData, field),
+                        link: getLink(nzData, field),
+                        field: field,
                         data: nzData
                       }
                     "
@@ -42,7 +42,7 @@
   #fieldRef
   let-ref="ref"
   let-text="text"
-  let-item="item"
+  let-field="field"
   let-data="data"
   let-link="link"
 >
@@ -52,12 +52,13 @@
       context: {
         data: data,
         text: text,
-        key: item.key,
-        link: link
+        key: field.key,
+        link: link,
+        field: field
       }
     "
   >
-    <ng-container *ngIf="item.ellipsis === false; else elseRef">
+    <ng-container *ngIf="field.ellipsis === false; else elseRef">
       <ng-container *ngTemplateOutlet="textRef"></ng-container>
     </ng-container>
     <ng-template #elseRef>
@@ -67,8 +68,10 @@
     </ng-template>
 
     <ng-template #textRef>
-      <a *ngIf="link" [href]="link" target="_blank">{{ text }}</a>
-      <ng-container *ngIf="!link">{{ text }}</ng-container>
+      <a *ngIf="field.type === 'link'" [href]="link" target="_blank">{{
+        text
+      }}</a>
+      <ng-container *ngIf="field.type !== 'link'">{{ text }}</ng-container>
     </ng-template>
   </ng-container>
 </ng-template>
