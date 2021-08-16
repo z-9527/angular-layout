@@ -39,7 +39,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() nzRowKey?: string | ((_record: any) => string) = 'id'; // 很重要，设置checkbox的值，默认为id
   @Input() nzTotal?: number;
   @Input() nzShowPagination?: boolean = true;
-  @Input() nzFrontPagination?: boolean = true;
+  @Input() nzFrontPagination?: boolean = false;
   @Input() nzPagination?: INzPagination = {};
   @Input() nzShowRowSelection?: boolean = true;
   @Input() nzRowSelection?: INzRowSelection = {};
@@ -59,7 +59,14 @@ export class TableComponent implements OnInit, OnChanges {
   indeterminate = false;
   fullscreen = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._queryList({
+      pageIndex: this.nzPagination.pageIndex || 1,
+      pageSize: this.nzPagination.pageSize || 10,
+      sort: undefined,
+      filter: undefined,
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const key in changes) {
@@ -168,7 +175,9 @@ export class TableComponent implements OnInit, OnChanges {
 
   onQueryParams(params: NzTableQueryParams) {
     this.nzQueryParams.emit(params);
-    this._queryList(params);
+    if (!this.nzFrontPagination) {
+      this._queryList(params);
+    }
   }
   _queryList = (params: NzTableQueryParams) => {
     if (typeof this.nzQueryList !== 'function') {

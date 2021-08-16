@@ -1,66 +1,39 @@
-<!-- <div style="padding: 12px">
+<div style="padding: 12px">
   <lib-table
-    #myTable
+    #tableRef
     [nzColumns]="columns"
-    [nzData]="data"
-    [nzTemplateRefs]="{ test: test, action: action }"
+    [nzTitle]="'前端分页'"
+    [nzQueryList]="queryListFront"
     [nzScroll]="{ x: '120%' }"
+    [nzFrontPagination]="true"
+    [nzTemplateRefs]="{ actionRef: actionRef }"
+    [nzHeader]="header"
     [nzRowSelection]="{
       selectedRowKeys: selectedRowKeys,
       onChange: onSelectChange
     }"
-    [nzTitle]="'表格标题2'"
-    [nzHeader]="header"
-  ></lib-table>
-
-  <ng-template
-    #test
-    let-dataIndex="dataIndex"
-    let-record="record"
-    let-index="index"
-    let-text="text"
   >
-    <div (click)="onTest(dataIndex, record, index, text)">测试</div>
-  </ng-template>
-  <ng-template #action let-record let-index="index"> </ng-template>
-  <ng-template #header>
-    <button nz-button nzType="primary" (click)="onClear()">清空勾选</button>
-  </ng-template>
-</div> -->
-
-<!-- <div style="padding: 12px">
-  <lib-table
-    #myTable2
-    [nzColumns]="columns"
-    [nzData]="data2"
-    [nzFrontPagination]="false"
-    [nzLoading]="loading"
-    [nzScroll]="{ x: '120%' }"
-    [nzTotal]="total"
-    [nzTitle]="'表格标题2'"
-    (nzQueryParams)="onQueryParamsChange($event)"
-  ></lib-table>
-</div> -->
+  </lib-table>
+</div>
+<ng-template #header>
+  <button nz-button nzType="primary" (click)="onClear()">清空勾选</button>
+</ng-template>
+<ng-template
+  #actionRef
+  let-dataIndex="dataIndex"
+  let-record="record"
+  let-index="index"
+  let-text="text"
+>
+  <a (click)="onTest(dataIndex, record, index, text)">测试</a>
+</ng-template>
 
 <div style="padding: 12px">
   <lib-table
     #myTable3
     [nzColumns]="columns"
     [nzScroll]="{ x: '120%' }"
-    [nzTitle]="'表格标题3'"
+    [nzTitle]="'后端分页'"
     [nzQueryList]="queryList"
-    [nzTemplateRefs]="{ actionRef: actionRef }"
   ></lib-table>
 </div>
-
-<ng-template
-  #actionRef
-  let-record
-  let-index="index"
-  let-text="text"
-  let-dataIndex="dataIndex"
->
-  <a (click)="onTest(text, record, index, dataIndex)">查看</a>
-  <nz-divider nzType="vertical"></nz-divider>
-  <a>删除</a>
-</ng-template>

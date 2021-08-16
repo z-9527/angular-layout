@@ -35,7 +35,6 @@ export const columns: INzColumn[] = [
     title: '年龄',
     dataIndex: 'age',
     align: 'center',
-    width: '120px',
     format(text) {
       return `${text}岁`;
     },
@@ -43,7 +42,7 @@ export const columns: INzColumn[] = [
   {
     title: '住址',
     dataIndex: 'address',
-    width: '100px',
+    width: 100,
   },
   {
     title: '链接',
@@ -59,7 +58,6 @@ export const columns: INzColumn[] = [
   {
     title: 'column1',
     dataIndex: 'column',
-    ref: 'test',
   },
   {
     title: 'column1',
@@ -73,7 +71,7 @@ export const columns: INzColumn[] = [
     title: '操作',
     dataIndex: 'action',
     fixed: 'right',
-    width: '150px',
+    width: 100,
     ref: 'actionRef',
   },
 ];
