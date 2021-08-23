@@ -1,7 +1,8 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { of } from 'rxjs';
+import { INzColumn } from 'table';
 
-export const filterFields: FormlyFieldConfig[] = [
+export const fields: FormlyFieldConfig[] = [
   {
     key: 'input',
     type: 'input',
@@ -70,5 +71,66 @@ export const filterFields: FormlyFieldConfig[] = [
     templateOptions: {
       label: 'text',
     },
+  },
+];
+
+export const columns: INzColumn[] = [
+  {
+    title: '序号',
+    dataIndex: 'number',
+    fixed: 'left',
+    showSort: true,
+    sortFn: (a, b) => b.number - a.number,
+  },
+  {
+    title: '姓名',
+    dataIndex: 'name',
+    key: 'name',
+    fixed: 'left',
+    showSort: true,
+    sortFn: (a, b) => a.name.localeCompare(b.name),
+  },
+  {
+    title: '年龄',
+    dataIndex: 'age',
+    align: 'center',
+    format(text) {
+      return `${text}岁`;
+    },
+  },
+  {
+    title: '住址',
+    dataIndex: 'address',
+    width: 100,
+  },
+  {
+    title: '链接',
+    dataIndex: 'link',
+    type: 'link',
+    // link: (text, record, index) => 'www.b.com', //可自定义link值
+  },
+  {
+    title: '时间',
+    dataIndex: 'time',
+    type: 'date',
+  },
+  {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
+    title: 'column1',
+    dataIndex: 'column',
+  },
+  {
+    title: '操作',
+    dataIndex: 'action',
+    fixed: 'right',
+    width: 100,
+    ref: 'actionRef',
   },
 ];

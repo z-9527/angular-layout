@@ -1,9 +1,16 @@
-<!-- <lib-filter-list [filterFields]="filterFields"></lib-filter-list> -->
-<lib-filter
-  [fields]="filterFields"
+<lib-filter-list
+  [fields]="fields"
+  [collapse]="false"
+  [nzColumns]="columns"
+  [nzQueryList]="queryList"
+  [nzScroll]="{ x: '120%' }"
+></lib-filter-list>
+
+<!-- <lib-filter
+  [fields]="fields"
   [model]="model"
   (search)="search($event)"
   (clear)="clear()"
   [collapse]="collapse"
 ></lib-filter>
-<button (click)="onTo()">fdafa</button>
+<button (click)="onTo()">fdafa</button> -->

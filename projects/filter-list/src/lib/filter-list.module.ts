@@ -15,8 +15,8 @@ import { FilterFooterComponent } from './filter/filter-footer';
   declarations: [FilterListComponent, FilterComponent, FilterFooterComponent],
   imports: [
     CommonModule,
-    TableModule,
     FormlyNgZorroAntdModule,
+    TableModule,
     FormlyModule.forChild({
       types: [
         {
