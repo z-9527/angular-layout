@@ -12,7 +12,7 @@ import {
 import { INzColumn, INzPagination, INzRowSelection, StringTemplateRef } from '../interface';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Observable } from 'rxjs';
-import { cloneDeep } from 'lodash';
+import * as _ from 'lodash';
 import * as dayjs from 'dayjs';
 
 export type SizeType = 'middle' | 'small' | 'default';
@@ -90,7 +90,7 @@ export class TableComponent implements OnInit, OnChanges {
         this._loading = field.currentValue;
       }
       if (key === 'nzColumns' && field.currentValue) {
-        const list = this.getInitColumns(cloneDeep(field.currentValue));
+        const list = this.getInitColumns(_.cloneDeep(field.currentValue));
         this._columns = list;
         this._initColumns = list;
       }
@@ -214,7 +214,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   changeColumns(arr) {
-    this._columns = cloneDeep(arr);
+    this._columns = _.cloneDeep(arr);
     this.cachesColumns(arr);
   }
   cachesColumns(arr) {

@@ -1,0 +1,9 @@
+<!-- <lib-filter-list [filterFields]="filterFields"></lib-filter-list> -->
+<lib-filter
+  [fields]="filterFields"
+  [model]="model"
+  (search)="search($event)"
+  (clear)="clear()"
+  [collapse]="collapse"
+></lib-filter>
+<button (click)="onTo()">fdafa</button>

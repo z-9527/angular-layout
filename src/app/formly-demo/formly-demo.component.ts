@@ -274,6 +274,9 @@ export class FormlyDemoComponent implements OnInit {
     const filed = this.fields.find((item) => item.key === 'select');
     setTimeout(() => {
       filed.templateOptions.options = [{ label: '333', value: '333' }];
+      this.model = {
+        input: 123123123,
+      };
       console.log(333);
     }, 3000);
   }

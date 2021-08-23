@@ -16,6 +16,10 @@
         "dist/antd-formly/antd-formly",
         "dist/antd-formly"
       ],
+      "filter-list": [
+        "projects/filter-list/src/public-api",
+        "dist/filter-list"
+      ],
       "info-table": [
         "projects/info-table/src/public-api"
       ],

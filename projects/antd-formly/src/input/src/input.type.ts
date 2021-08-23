@@ -34,13 +34,13 @@ import { FieldType } from '@ngx-formly/core';
       ></nz-input-number>
 
       <ng-container *ngSwitchCase="'textarea'">
-        <nz-textarea-count *ngIf="to.showCount; else textareaRef" [nzMaxCharacterCount]="to.maxLength">
+        <nz-textarea-count *ngIf="to.showCount; else textareaRef" [nzMaxCharacterCount]="to.maxLength || 100">
           <textarea
             nz-input
             [formControl]="formControl"
             [formlyAttributes]="field"
             [rows]="to.rows"
-            [maxLength]="to.maxLength"
+            [maxLength]="to.maxLength || 100"
             (ngModelChange)="onChange($event)"
           ></textarea>
         </nz-textarea-count>
@@ -50,7 +50,6 @@ import { FieldType } from '@ngx-formly/core';
             [formControl]="formControl"
             [formlyAttributes]="field"
             [rows]="to.rows"
-            [maxLength]="to.maxLength"
             (ngModelChange)="onChange($event)"
           ></textarea>
         </ng-template>

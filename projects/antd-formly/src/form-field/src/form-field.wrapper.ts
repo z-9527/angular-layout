@@ -32,6 +32,7 @@ const DEFAULT_WRAPPER_COL = 16;
       <nz-form-item>
         <ng-container *ngIf="to.label && to.hideLabel !== true">
           <nz-form-label
+            class="custom-label"
             [nzRequired]="to.required && to.hideRequiredMarker !== true"
             [nzSpan]="labelCol"
             [nzTooltipTitle]="to.tooltipTitle"
