@@ -7,11 +7,11 @@ import * as dayjs from 'dayjs';
   styleUrls: ['./info-table.component.less'],
 })
 export class InfoTableComponent implements OnInit {
-  @Input() nzTitle?: StringTemplateRef;
-  @Input() nzData?: Record<string, any> = {};
-  @Input() nzConfig?: IField[][] = [];
-  @Input() nzLabelWidth?: string;
-  @Input() nzTemplateRefs?: Record<string, TemplateRef<any>> = {};
+  @Input() title?: StringTemplateRef;
+  @Input() data?: Record<string, any> = {};
+  @Input() config?: IField[][] = [];
+  @Input() labelWidth?: string;
+  @Input() templateRefs?: Record<string, TemplateRef<any>> = {};
   constructor() {}
 
   ngOnInit(): void {}

@@ -1,14 +1,14 @@
 <div style="padding: 12px">
   <lib-table
     #tableRef
-    [nzColumns]="columns"
-    [nzTitle]="'前端分页'"
-    [nzQueryList]="queryListFront"
-    [nzScroll]="{ x: '120%' }"
-    [nzFrontPagination]="true"
-    [nzTemplateRefs]="{ actionRef: actionRef }"
-    [nzHeader]="header"
-    [nzRowSelection]="{
+    [columns]="columns"
+    [title]="'前端分页'"
+    [queryList]="queryListFront"
+    [scroll]="{ x: '120%' }"
+    [frontPagination]="true"
+    [templateRefs]="{ actionRef: actionRef }"
+    [header]="header"
+    [rowSelection]="{
       selectedRowKeys: selectedRowKeys,
       onChange: onSelectChange
     }"
@@ -31,9 +31,9 @@
 <div style="padding: 12px">
   <lib-table
     #myTable3
-    [nzColumns]="columns"
-    [nzScroll]="{ x: '120%' }"
-    [nzTitle]="'后端分页'"
-    [nzQueryList]="queryList"
+    [columns]="columns"
+    [scroll]="{ x: '120%' }"
+    [title]="'后端分页'"
+    [queryList]="queryList"
   ></lib-table>
 </div>

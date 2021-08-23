@@ -5,27 +5,25 @@
 
   <nz-table
     #basicTable
-    [nzSize]="_size"
-    [nzLoading]="_loading"
-    [nzData]="_data"
-    [nzScroll]="nzScroll"
-    [nzBordered]="nzBordered"
-    [nzOuterBordered]="nzOuterBordered"
+    [nzSize]="size"
+    [nzLoading]="loading"
+    [nzData]="data"
+    [nzScroll]="scroll"
+    [nzBordered]="bordered"
+    [nzOuterBordered]="outerBordered"
     [nzTitle]="headerRef"
-    [nzFooter]="nzFooter"
-    [nzNoResult]="nzNoResult"
-    [nzShowPagination]="nzShowPagination"
-    [nzFrontPagination]="nzFrontPagination"
-    [nzTotal]="_total"
-    [nzPageIndex]="nzPagination.pageIndex || 1"
-    [nzPageSize]="nzPagination.pageSize || 10"
-    [nzPageSizeOptions]="
-      nzPagination.pageSizeOptions || [5, 10, 20, 30, 40, 50]
-    "
-    [nzShowQuickJumper]="nzPagination.showQuickJumper !== false"
-    [nzShowSizeChanger]="nzPagination.showSizeChanger !== false"
+    [nzFooter]="footer"
+    [nzNoResult]="noResult"
+    [nzShowPagination]="showPagination"
+    [nzFrontPagination]="frontPagination"
+    [nzTotal]="total"
+    [nzPageIndex]="pagination.pageIndex || 1"
+    [nzPageSize]="pagination.pageSize || 10"
+    [nzPageSizeOptions]="pagination.pageSizeOptions || [5, 10, 20, 30, 40, 50]"
+    [nzShowQuickJumper]="pagination.showQuickJumper !== false"
+    [nzShowSizeChanger]="pagination.showSizeChanger !== false"
     [nzShowTotal]="totalTemplate"
-    [nzPaginationType]="_size"
+    [nzPaginationType]="size"
     (nzPageIndexChange)="pageIndexChange($event)"
     (nzPageSizeChange)="pageSizeChange($event)"
     (nzCurrentPageDataChange)="currentPageDataChange($event)"
@@ -33,10 +31,10 @@
   >
     <thead>
       <tr>
-        <ng-container *ngIf="nzShowRowSelection">
+        <ng-container *ngIf="showRowSelection">
           <th
             [width]="'50px'"
-            [nzLeft]="nzRowSelection.fixed !== false"
+            [nzLeft]="rowSelection.fixed !== false"
             [nzChecked]="checked"
             [nzIndeterminate]="indeterminate"
             (nzCheckedChange)="onAllChecked($event)"
@@ -52,21 +50,19 @@
             [nzShowSort]="column.showSort"
             [nzSortFn]="column.sortFn"
             [nzSortDirections]="column.sortDirections"
-            [nzSortOrder]="column.nzSortOrder"
+            [nzSortOrder]="column.sortOrder"
             [nzSortOrderChange]="column.sortOrderChange"
             [nzShowFilter]="column.showFilter"
             [nzFilterFn]="column.filterFn"
             [nzFilters]="column.filters"
-            [nzFilterMultiple]="column.nzFilterMultiple"
-            [nzFilterChange]="column.nzFilterChange"
+            [nzFilterMultiple]="column.filterMultiple"
+            [nzFilterChange]="column.filterChange"
             [nzColumnKey]="column.dataIndex"
             [nzWidth]="getColumnWidth(column)"
           >
             <ng-container
               *nzStringTemplateOutlet="
-                nzTemplateRefs[column.titleRef] ||
-                column.titleRef ||
-                column.title
+                templateRefs[column.titleRef] || column.titleRef || column.title
               "
             >
               {{ column.title }}
@@ -77,9 +73,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of basicTable.data; let i = index">
-        <ng-container *ngIf="nzShowRowSelection">
+        <ng-container *ngIf="showRowSelection">
           <td
-            [nzLeft]="nzRowSelection.fixed !== false"
+            [nzLeft]="rowSelection.fixed !== false"
             [nzChecked]="_selectedRowKeys.has(getRowKeyValue(data))"
             [nzDisabled]="data.disabled"
             (nzCheckedChange)="
@@ -117,15 +113,15 @@
 
 <ng-template #headerRef>
   <div class="header-box">
-    <ng-container *nzStringTemplateOutlet="nzTitle">
-      <div class="title">{{ nzTitle }}</div>
+    <ng-container *nzStringTemplateOutlet="title">
+      <div class="title">{{ title }}</div>
     </ng-container>
     <div class="header-right">
-      <ng-container *nzStringTemplateOutlet="nzHeader">
-        {{ nzHeader }}
+      <ng-container *nzStringTemplateOutlet="header">
+        {{ header }}
       </ng-container>
       <lib-tooltip
-        [originColumns]="nzColumns"
+        [originColumns]="columns"
         [initColumns]="_initColumns"
         (changeSize)="changeSize($event)"
         (toggleFullScreen)="toggleFullScreen($event)"
@@ -147,7 +143,7 @@
 >
   <ng-container
     *nzStringTemplateOutlet="
-      nzTemplateRefs[column.ref] || column.ref;
+      templateRefs[column.ref] || column.ref;
       context: {
         record: data,
         $implicit: data,

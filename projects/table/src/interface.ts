@@ -25,14 +25,14 @@ export interface INzColumn extends Record<string, any> {
   showSort?: boolean;
   sortFn?: NzTableSortFn | boolean;
   sortDirections?: NzTableSortOrder[];
-  nzSortOrder?: NzTableSortOrder;
+  sortOrder?: NzTableSortOrder;
   sortOrderChange?: (_order: NzTableSortOrder) => unknown;
 
   showFilter?: boolean;
   filterFn?: NzTableFilterFn;
   filters?: NzTableFilterList[];
-  nzFilterMultiple?: boolean;
-  nzFilterChange?: (_value: NzTableFilterValue) => unknown;
+  filterMultiple?: boolean;
+  filterChange?: (_value: NzTableFilterValue) => unknown;
 }
 
 export interface INzPagination {

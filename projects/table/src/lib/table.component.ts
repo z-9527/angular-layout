@@ -25,45 +25,41 @@ export type SizeType = 'middle' | 'small' | 'default';
 export class TableComponent implements OnInit, OnChanges {
   @ViewChild('basicTable') basicTable;
   @Input() tableKey: string;
-  @Input() nzColumns: INzColumn[] = [];
-  @Input() nzData?: Record<string, any>[];
-  @Input() nzSize?: SizeType;
-  @Input() nzLoading?: boolean = false;
-  @Input() nzTemplateRefs?: Record<string, TemplateRef<any>> = {};
-  @Input() nzScroll?: { x?: string; y?: string };
-  @Input() nzBordered?: boolean;
-  @Input() nzOuterBordered?: boolean;
-  @Input() nzTitle?: StringTemplateRef;
-  @Input() nzFooter?: StringTemplateRef;
-  @Input() nzNoResult?: StringTemplateRef;
-  @Input() nzRowKey?: string | ((_record: any) => string) = 'id'; // 很重要，设置checkbox的值，默认为id
-  @Input() nzTotal?: number;
-  @Input() nzShowPagination?: boolean = true;
-  @Input() nzFrontPagination?: boolean = false;
-  @Input() nzPagination?: INzPagination = {};
-  @Input() nzShowRowSelection?: boolean = true;
-  @Input() nzRowSelection?: INzRowSelection = {};
-  @Input() nzHeader?: StringTemplateRef;
-  @Input() nzQueryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>; // 自定义请求的分页函数，必须返回Observable的对象
-  @Output() nzQueryParams?: EventEmitter<NzTableQueryParams> = new EventEmitter();
+  @Input() columns: INzColumn[] = [];
+  @Input() data?: Record<string, any>[];
+  @Input() size?: SizeType = 'default';
+  @Input() loading?: boolean = false;
+  @Input() templateRefs?: Record<string, TemplateRef<any>> = {};
+  @Input() scroll?: { x?: string; y?: string };
+  @Input() bordered?: boolean;
+  @Input() outerBordered?: boolean;
+  @Input() title?: StringTemplateRef;
+  @Input() footer?: StringTemplateRef;
+  @Input() noResult?: StringTemplateRef;
+  @Input() rowKey?: string | ((_record: any) => string) = 'id'; // 很重要，设置checkbox的值，默认为id
+  @Input() total?: number;
+  @Input() showPagination?: boolean = true;
+  @Input() frontPagination?: boolean = false;
+  @Input() pagination?: INzPagination = {};
+  @Input() showRowSelection?: boolean = true;
+  @Input() rowSelection?: INzRowSelection = {};
+  @Input() header?: StringTemplateRef;
+  @Input() queryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>; // 自定义请求的分页函数，必须返回Observable的对象
+  @Output() queryParams?: EventEmitter<NzTableQueryParams> = new EventEmitter();
 
   _columns: INzColumn[] = [];
   _initColumns: INzColumn[] = [];
-  _size: SizeType = 'default';
   _selectedRowKeys = new Set<number | string>();
-  _total: number = 0;
-  _data: Record<string, any>[] = [];
-  _loading = false;
   listOfCurrentPageData: any[] = [];
   checked = false;
   indeterminate = false;
   fullscreen = false;
 
   ngOnInit(): void {
-    if (this.nzFrontPagination) {
+    if (this.frontPagination) {
       this._queryList({
-        pageIndex: this.nzPagination.pageIndex || 1,
-        pageSize: this.nzPagination.pageSize || 10,
+        pageIndex: this.pagination.pageIndex || 1,
+        pageSize: this.pagination.pageSize || 10,
         sort: undefined,
         filter: undefined,
       });
@@ -73,23 +69,11 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     for (const key in changes) {
       const field = changes[key];
-      if (key === 'nzSize') {
-        this._size = field.currentValue;
-      }
-      if (key === 'nzRowSelection' && field.currentValue.selectedRowKeys) {
+      if (key === 'rowSelection' && field.currentValue.selectedRowKeys) {
         this._selectedRowKeys = new Set(field.currentValue.selectedRowKeys);
         this.refreshCheckedStatus();
       }
-      if (key === 'nzData') {
-        this._data = field.currentValue || [];
-      }
-      if (key === 'nzTotal') {
-        this._total = field.currentValue;
-      }
-      if (key === 'nzLoading') {
-        this._loading = field.currentValue;
-      }
-      if (key === 'nzColumns' && field.currentValue) {
+      if (key === 'columns' && field.currentValue) {
         const list = this.getInitColumns(_.cloneDeep(field.currentValue));
         this._columns = list;
         this._initColumns = list;
@@ -114,23 +98,23 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   pageIndexChange(index) {
-    this.nzPagination.pageIndexChange && this.nzPagination.pageIndexChange(index);
+    this.pagination.pageIndexChange && this.pagination.pageIndexChange(index);
   }
   pageSizeChange(size) {
-    this.nzPagination.pageSizeChange && this.nzPagination.pageSizeChange(size);
+    this.pagination.pageSizeChange && this.pagination.pageSizeChange(size);
   }
   currentPageDataChange(currentData) {
-    this.nzPagination.currentPageDataChange && this.nzPagination.currentPageDataChange(currentData);
+    this.pagination.currentPageDataChange && this.pagination.currentPageDataChange(currentData);
 
     this.listOfCurrentPageData = currentData;
     this.refreshCheckedStatus();
   }
 
   getRowKeyValue(record = {}) {
-    if (typeof this.nzRowKey === 'function') {
-      return this.nzRowKey(record);
+    if (typeof this.rowKey === 'function') {
+      return this.rowKey(record);
     }
-    return record[this.nzRowKey];
+    return record[this.rowKey];
   }
 
   onAllChecked(checked: boolean) {
@@ -141,7 +125,7 @@ export class TableComponent implements OnInit, OnChanges {
         this.updateCheckedSet(rowKey, checked);
       });
     this.refreshCheckedStatus();
-    this.nzRowSelection.onChange && this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
+    this.rowSelection.onChange && this.rowSelection.onChange(Array.from(this._selectedRowKeys));
   }
 
   updateCheckedSet(rowKey, checked: boolean): void {
@@ -155,8 +139,8 @@ export class TableComponent implements OnInit, OnChanges {
   onItemChecked(rowKey, checked, data) {
     this.updateCheckedSet(rowKey, checked);
     this.refreshCheckedStatus();
-    this.nzRowSelection.onSelect && this.nzRowSelection.onSelect(data, checked, Array.from(this._selectedRowKeys));
-    this.nzRowSelection.onChange && this.nzRowSelection.onChange(Array.from(this._selectedRowKeys));
+    this.rowSelection.onSelect && this.rowSelection.onSelect(data, checked, Array.from(this._selectedRowKeys));
+    this.rowSelection.onChange && this.rowSelection.onChange(Array.from(this._selectedRowKeys));
   }
 
   refreshCheckedStatus(): void {
@@ -169,31 +153,31 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   changeSize(size) {
-    this._size = size;
+    this.size = size;
   }
   toggleFullScreen(fullscreen) {
     this.fullscreen = fullscreen;
   }
 
   onQueryParams(params: NzTableQueryParams) {
-    this.nzQueryParams.emit(params);
-    if (!this.nzFrontPagination) {
+    this.queryParams.emit(params);
+    if (!this.frontPagination) {
       this._queryList(params);
     }
   }
   _queryList = (params: NzTableQueryParams) => {
-    if (typeof this.nzQueryList !== 'function') {
+    if (typeof this.queryList !== 'function') {
       return;
     }
-    this._loading = true;
-    this.nzQueryList(params).subscribe({
+    this.loading = true;
+    this.queryList(params).subscribe({
       next: (res) => {
-        this._total = res.total;
-        this._data = res.data;
-        this._loading = false;
+        this.total = res.total;
+        this.data = res.data;
+        this.loading = false;
       },
       error: (_err) => {
-        this._loading = false;
+        this.loading = false;
       },
     });
   };

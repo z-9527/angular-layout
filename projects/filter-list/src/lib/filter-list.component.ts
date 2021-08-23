@@ -20,12 +20,7 @@ import { Observable } from 'rxjs';
       </div>
 
       <div style="padding:12px">
-        <lib-table
-          [nzColumns]="nzColumns"
-          [nzScroll]="nzScroll"
-          [nzTitle]="nzTitle"
-          [nzQueryList]="nzQueryList"
-        ></lib-table>
+        <lib-table [columns]="columns" [scroll]="scroll" [title]="title" [queryList]="queryList"></lib-table>
       </div>
     </div>
   `,
@@ -41,10 +36,10 @@ export class FilterListComponent implements OnInit {
   @Output() search: EventEmitter<any> = new EventEmitter();
   @Output() clear: EventEmitter<any> = new EventEmitter();
 
-  @Input() nzColumns: INzColumn[] = [];
-  @Input() nzTitle?: StringTemplateRef;
-  @Input() nzScroll?: { x?: string; y?: string };
-  @Input() nzQueryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>;
+  @Input() columns: INzColumn[] = [];
+  @Input() title?: StringTemplateRef;
+  @Input() scroll?: { x?: string; y?: string };
+  @Input() queryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>;
 
   constructor() {}
 

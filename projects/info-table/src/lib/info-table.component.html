@@ -1,22 +1,22 @@
 <div class="info-table-wrap">
-  <div class="info-table-title" *ngIf="nzTitle">
-    <ng-container *nzStringTemplateOutlet="nzTitle">
-      {{ nzTitle }}
+  <div class="info-table-title" *ngIf="title">
+    <ng-container *nzStringTemplateOutlet="title">
+      {{ title }}
     </ng-container>
   </div>
   <div>
-    <ng-container *ngIf="isArray(nzConfig)">
-      <ng-container *ngFor="let row of nzConfig">
+    <ng-container *ngIf="isArray(config)">
+      <ng-container *ngFor="let row of config">
         <div class="info-table-row">
           <ng-container *ngIf="isArray(row)">
             <ng-container *ngFor="let field of row">
               <div
                 class="info-table-field"
                 *ngIf="
-                  field.hideExpression ? !field.hideExpression(nzData) : true
+                  field.hideExpression ? !field.hideExpression(data) : true
                 "
               >
-                <div class="field-label" [style.width]="nzLabelWidth">
+                <div class="field-label" [style.width]="labelWidth">
                   {{ field.label }}
                 </div>
                 <div class="field-value">
@@ -24,11 +24,11 @@
                     *ngTemplateOutlet="
                       fieldRef;
                       context: {
-                        ref: nzTemplateRefs[field.ref] || field.ref,
-                        text: getText(nzData, field),
-                        link: getLink(nzData, field),
+                        ref: templateRefs[field.ref] || field.ref,
+                        text: getText(data, field),
+                        link: getLink(data, field),
                         field: field,
-                        data: nzData
+                        data: data
                       }
                     "
                   >
