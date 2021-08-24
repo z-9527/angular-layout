@@ -25,6 +25,9 @@ const DEFAULT_COLS = 6;
       .filter-wrapper {
         background-color: #fff;
       }
+      ::ng-deep .expand-footer .filter-footer {
+        text-align: right;
+      }
     `,
   ],
 })
@@ -44,13 +47,16 @@ export class FilterComponent implements OnInit, OnChanges {
 
   _fields: FormlyFieldConfig[] = [];
 
+  get cols() {
+    return this.options?.formState?.cols || DEFAULT_COLS;
+  }
+
   /**
    * 计算需要折叠的最小fields长度
    */
   get minCollapseLength() {
-    const cols = this.options?.formState?.cols || 6;
     const row = Number(this.foldRow);
-    return (24 / cols) * row;
+    return (24 / this.cols) * row;
   }
 
   /**
@@ -61,6 +67,13 @@ export class FilterComponent implements OnInit, OnChanges {
       return false;
     }
     return true;
+  }
+
+  get footerOffset() {
+    const offsetCol =
+      Math.ceil(this.fields.length / this.minCollapseLength) * this.minCollapseLength - this.fields.length - 1;
+    const offset = ((offsetCol + this.minCollapseLength) % this.minCollapseLength) * this.cols;
+    return this.collapse ? 0 : offset;
   }
 
   ngOnInit(): void {
@@ -100,6 +113,8 @@ export class FilterComponent implements OnInit, OnChanges {
       key: 'collapseField',
       type: 'filter-footer',
       templateOptions: {
+        itemClassName: !this.collapse && 'expand-footer',
+        offset: this.footerOffset,
         collapse: this.collapse,
         canCollapse: this.canCollapse,
         searchText: this.searchText,

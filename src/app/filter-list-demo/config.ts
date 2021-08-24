@@ -72,6 +72,13 @@ export const fields: FormlyFieldConfig[] = [
       label: 'text',
     },
   },
+  // {
+  //   key: 'text2',
+  //   type: 'input',
+  //   templateOptions: {
+  //     label: 'text',
+  //   },
+  // },
 ];
 
 export const columns: INzColumn[] = [

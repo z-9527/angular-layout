@@ -5,7 +5,7 @@ import { FieldType } from '@ngx-formly/core';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'formly-field-filter-footer',
   template: `
-    <div>
+    <div class="filter-footer">
       <button nz-button nzType="primary" type="submit" (click)="to.search()">{{ to.searchText }}</button>
       <button nz-button type="button" (click)="to.clear()">{{ to.clearText }}</button>
       <button
@@ -14,7 +14,7 @@ import { FieldType } from '@ngx-formly/core';
         nzType="link"
         type="button"
         (click)="toggleCollapse()"
-        style="margin: 0;"
+        style="margin: 0;padding-right:0"
       >
         高级筛选<i nz-icon [nzType]="this.to.collapse ? 'down' : 'up'"></i>
       </button>

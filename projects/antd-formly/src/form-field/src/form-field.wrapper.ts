@@ -28,7 +28,7 @@ const DEFAULT_WRAPPER_COL = 16;
   selector: 'formly-wrapper-panel',
   styleUrls: ['./form-field.wrapper.less'],
   template: `
-    <div nz-col [nzSpan]="cols" [ngClass]="itemClass">
+    <div nz-col [nzSpan]="cols" [nzOffset]="to.offset" [ngClass]="itemClass" [style]="to.style">
       <nz-form-item>
         <ng-container *ngIf="to.label && to.hideLabel !== true">
           <nz-form-label
