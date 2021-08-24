@@ -1,7 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { INzColumn, PageType, StringTemplateRef, TableComponent } from 'table';
+import {
+  INzColumn,
+  INzPagination,
+  INzRowSelection,
+  PageType,
+  SizeType,
+  StringTemplateRef,
+  TableComponent,
+} from 'table';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Observable, of } from 'rxjs';
 
@@ -23,7 +31,30 @@ import { Observable, of } from 'rxjs';
       </div>
 
       <div style="padding:12px">
-        <lib-table #tableRef [columns]="columns" [scroll]="scroll" [title]="title" [queryList]="_queryList"></lib-table>
+        <lib-table
+          #tableRef
+          [tableKey]="tableKey"
+          [columns]="columns"
+          [data]="data"
+          [size]="size"
+          [loading]="loading"
+          [templateRefs]="templateRefs"
+          [scroll]="scroll"
+          [bordered]="bordered"
+          [outerBordered]="outerBordered"
+          [title]="title"
+          [footer]="footer"
+          [noResult]="noResult"
+          [rowKey]="rowKey"
+          [total]="total"
+          [showPagination]="showPagination"
+          [frontPagination]="frontPagination"
+          [pagination]="pagination"
+          [showRowSelection]="showRowSelection"
+          [rowSelection]="rowSelection"
+          [header]="header"
+          [queryList]="_queryList"
+        ></lib-table>
       </div>
     </div>
   `,
@@ -42,10 +73,28 @@ export class FilterListComponent implements OnInit {
   @Output() search: EventEmitter<any> = new EventEmitter();
   @Output() clear: EventEmitter<any> = new EventEmitter();
 
+  @Input() tableKey: string;
   @Input() columns: INzColumn[] = [];
-  @Input() title?: StringTemplateRef;
+  @Input() data?: Record<string, any>[];
+  @Input() size?: SizeType = 'default';
+  @Input() loading?: boolean = false;
+  @Input() templateRefs?: Record<string, TemplateRef<any>> = {};
   @Input() scroll?: { x?: string; y?: string };
-  @Input() queryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>;
+  @Input() bordered?: boolean;
+  @Input() outerBordered?: boolean;
+  @Input() title?: StringTemplateRef;
+  @Input() footer?: StringTemplateRef;
+  @Input() noResult?: StringTemplateRef;
+  @Input() rowKey?: string | ((_record: any) => string) = 'id'; // 很重要，设置checkbox的值，默认为id
+  @Input() total?: number;
+  @Input() showPagination?: boolean = true;
+  @Input() frontPagination?: boolean = false;
+  @Input() pagination?: INzPagination = {};
+  @Input() showRowSelection?: boolean = true;
+  @Input() rowSelection?: INzRowSelection = {};
+  @Input() header?: StringTemplateRef;
+  @Input() queryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>; // 自定义请求的分页函数，必须返回Observable的对象
+  @Output() queryParams?: EventEmitter<NzTableQueryParams> = new EventEmitter();
 
   constructor() {}
 
