@@ -8,7 +8,7 @@ export const fields: FormlyFieldConfig[] = [
     type: 'input',
     templateOptions: {
       label: 'input',
-      required: true,
+      // required: true,
       itemClassName: 'ttttt',
       tooltipTitle: '提示信息提示',
       afterRef: 'btnRef',

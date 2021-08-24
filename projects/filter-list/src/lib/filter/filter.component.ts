@@ -37,6 +37,8 @@ export class FilterComponent implements OnInit, OnChanges {
   @Input() fields: FormlyFieldConfig[];
   @Input() foldRow: number | boolean = 1;
   @Input() collapse: boolean = true;
+  @Input() searchText: string = '搜索';
+  @Input() clearText: string = '清空';
   @Output() search: EventEmitter<any> = new EventEmitter();
   @Output() clear: EventEmitter<any> = new EventEmitter();
 
@@ -100,6 +102,8 @@ export class FilterComponent implements OnInit, OnChanges {
       templateOptions: {
         collapse: this.collapse,
         canCollapse: this.canCollapse,
+        searchText: this.searchText,
+        clearText: this.clearText,
         search: () => this.onSearch(),
         clear: () => this.onClear(),
         toggleCollapse: (v) => {

@@ -19,14 +19,15 @@ export class FilterListDemoComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.model = {
-        select2: 2,
-        text: 333,
-      };
-      const field = this.fields.find((item) => item.key === 'select2');
-      field.templateOptions.options = [{ label: 2, value: 2 }];
-    }, 3000);
+    // setTimeout(() => {
+    //   this.model = {
+    //     ...this.model,
+    //     select2: 2,
+    //     text: 333,
+    //   };
+    //   const field = this.fields.find((item) => item.key === 'select2');
+    //   field.templateOptions.options = [{ label: 2, value: 2 }];
+    // }, 3000);
   }
   search(v) {
     console.log('v: ', v);
@@ -34,12 +35,9 @@ export class FilterListDemoComponent implements OnInit {
   clear() {
     console.log(3123);
   }
-  onTo() {
-    this.collapse = !this.collapse;
-  }
   queryList(param) {
     console.log('param: ', param);
-    const { pageSize, pageIndex } = param;
+    const { pageSize = 10, pageIndex } = param.page;
     const startIndex = (pageIndex - 1) * pageSize + 1;
     const res = Mock.mock({
       total: 200,

@@ -52,3 +52,8 @@ export interface INzRowSelection {
   onChange?: (_selectedRowKeys: any[]) => unknown;
   onSelect?: (_record: any, _selected: boolean, _selectedRowKeys: any[]) => unknown;
 }
+
+export type PageType = {
+  pageIndex?: number;
+  pageSize?: number;
+};

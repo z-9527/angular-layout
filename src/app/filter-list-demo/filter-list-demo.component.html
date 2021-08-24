@@ -1,9 +1,12 @@
 <lib-filter-list
+  [model]="model"
   [fields]="fields"
   [collapse]="false"
   [columns]="columns"
   [queryList]="queryList"
   [scroll]="{ x: '120%' }"
+  (clear)="clear()"
+  (search)="search($event)"
 ></lib-filter-list>
 
 <!-- <lib-filter
@@ -12,5 +15,4 @@
   (search)="search($event)"
   (clear)="clear()"
   [collapse]="collapse"
-></lib-filter>
-<button (click)="onTo()">fdafa</button> -->
+></lib-filter> -->

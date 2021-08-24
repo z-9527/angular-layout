@@ -9,7 +9,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { INzColumn, INzPagination, INzRowSelection, StringTemplateRef } from '../interface';
+import { INzColumn, INzPagination, INzRowSelection, PageType, StringTemplateRef } from '../interface';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
@@ -169,31 +169,35 @@ export class TableComponent implements OnInit, OnChanges {
     if (typeof this.queryList !== 'function') {
       return;
     }
+    this.pagination = {
+      ...this.pagination,
+      ...params,
+    };
     this.loading = true;
     this.queryList(params).subscribe({
-      next: (res) => {
-        this.total = res.total;
-        this.data = res.data;
+      next: (res: any = {}) => {
+        this.total = res?.total || 0;
+        this.data = res?.data || [];
         this.loading = false;
       },
-      error: (_err) => {
+      error: () => {
         this.loading = false;
       },
     });
   };
   // 刷新数据
-  refresh() {
+  refresh(page?: PageType) {
     const { nzPageIndex, nzPageSize } = this.basicTable;
     this._queryList({
-      pageIndex: nzPageIndex,
-      pageSize: nzPageSize,
+      pageIndex: page?.pageIndex ?? nzPageIndex,
+      pageSize: page?.pageSize ?? nzPageSize,
       sort: undefined,
       filter: undefined,
     });
   }
   // 刷新数据并清空勾选（一般在勾选完成操作后调用）
-  reload() {
-    this.refresh();
+  reload(page?: PageType) {
+    this.refresh(page);
     this._selectedRowKeys.clear();
   }
 

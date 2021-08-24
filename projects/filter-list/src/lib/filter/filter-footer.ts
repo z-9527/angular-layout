@@ -6,8 +6,8 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-field-filter-footer',
   template: `
     <div>
-      <button nz-button nzType="primary" type="submit" (click)="to.search()">搜索</button>
-      <button nz-button type="button" (click)="to.clear()">清空</button>
+      <button nz-button nzType="primary" type="submit" (click)="to.search()">{{ to.searchText }}</button>
+      <button nz-button type="button" (click)="to.clear()">{{ to.clearText }}</button>
       <button
         *ngIf="to.canCollapse"
         nz-button
