@@ -44,6 +44,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() showRowSelection?: boolean = true;
   @Input() rowSelection?: INzRowSelection = {};
   @Input() header?: StringTemplateRef;
+  @Input() showAction?: boolean = true;
   @Input() queryList?: (_param: NzTableQueryParams) => Observable<{ total: number; data: any[] }>; // 自定义请求的分页函数，必须返回Observable的对象
   @Output() queryParams?: EventEmitter<NzTableQueryParams> = new EventEmitter();
 

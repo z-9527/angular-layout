@@ -121,6 +121,7 @@
         {{ header }}
       </ng-container>
       <lib-tooltip
+        *ngIf="showAction"
         [originColumns]="columns"
         [initColumns]="_initColumns"
         (changeSize)="changeSize($event)"
