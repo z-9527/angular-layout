@@ -18,14 +18,13 @@ export const dataSource = [
 export const columns: INzColumn[] = [
   {
     title: '序号',
-    dataIndex: 'number',
+    key: 'number',
     fixed: 'left',
     showSort: true,
     sortFn: (a, b) => b.number - a.number,
   },
   {
     title: '姓名',
-    dataIndex: 'name',
     key: 'name',
     fixed: 'left',
     showSort: true,
@@ -33,7 +32,7 @@ export const columns: INzColumn[] = [
   },
   {
     title: '年龄',
-    dataIndex: 'age',
+    key: 'age',
     align: 'center',
     format(text) {
       return `${text}岁`;
@@ -41,35 +40,35 @@ export const columns: INzColumn[] = [
   },
   {
     title: '住址',
-    dataIndex: 'address',
+    key: 'address',
     width: 100,
   },
   {
     title: '链接',
-    dataIndex: 'link',
+    key: 'link',
     type: 'link',
     // link: (text, record, index) => 'www.b.com', //可自定义link值
   },
   {
     title: '时间',
-    dataIndex: 'time',
+    key: 'time',
     type: 'date',
   },
   {
     title: 'column1',
-    dataIndex: 'column',
+    key: 'column',
   },
   {
     title: 'column1',
-    dataIndex: 'column',
+    key: 'column',
   },
   {
     title: 'column1',
-    dataIndex: 'column',
+    key: 'column',
   },
   {
     title: '操作',
-    dataIndex: 'action',
+    key: 'action',
     fixed: 'right',
     width: 100,
     ref: 'actionRef',

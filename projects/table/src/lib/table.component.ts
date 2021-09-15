@@ -87,7 +87,7 @@ export class TableComponent implements OnInit, OnChanges {
     // 因为JSON没有函数类型值，所以从源columns中获取其它值
     if (Array.isArray(cachesColumns)) {
       return cachesColumns.map((item) => {
-        const originColumn = arr.find((subItem) => subItem.dataIndex === item.dataIndex) || item;
+        const originColumn = arr.find((subItem) => subItem.key === item.key) || item;
         return {
           ...originColumn,
           show: item.show,
@@ -224,7 +224,7 @@ export class TableComponent implements OnInit, OnChanges {
     }
   }
   getText(data, column, index) {
-    const text = column.format ? column.format(data[column.dataIndex], data, index) : data[column.dataIndex];
+    const text = column.format ? column.format(data[column.key], data, index) : data[column.key];
     if (column.type === 'date') {
       return text && dayjs(text).format('YYYY-MM-DD HH:mm:ss');
     }
@@ -233,8 +233,8 @@ export class TableComponent implements OnInit, OnChanges {
 
   getLink(data, column, index) {
     if (typeof column.link === 'function') {
-      return column.link(data[column.dataIndex], data, index);
+      return column.link(data[column.key], data, index);
     }
-    return data[column.dataIndex];
+    return data[column.key];
   }
 }

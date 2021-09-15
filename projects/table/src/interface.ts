@@ -12,7 +12,7 @@ export type StringTemplateRef = string | TemplateRef<any>;
 export interface INzColumn extends Record<string, any> {
   title?: StringTemplateRef;
   titleRef?: StringTemplateRef;
-  dataIndex: string;
+  key: string;
   ref?: StringTemplateRef;
   format?: (_text: string, _record: any, _index: number) => string | number;
   className?: string;

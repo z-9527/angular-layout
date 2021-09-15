@@ -20,12 +20,12 @@
 </ng-template>
 <ng-template
   #actionRef
-  let-dataIndex="dataIndex"
+  let-key="key"
   let-record="record"
   let-index="index"
   let-text="text"
 >
-  <a (click)="onTest(dataIndex, record, index, text)">测试</a>
+  <a (click)="onTest(key, record, index, text)">测试</a>
 </ng-template>
 
 <div style="padding: 12px">

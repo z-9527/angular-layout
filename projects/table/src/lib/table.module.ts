@@ -4,7 +4,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 import { CommonModule } from '@angular/common';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -44,7 +44,7 @@ const icons: IconDefinition[] = [
     NzOutletModule,
     CommonModule,
     NzToolTipModule,
-    NzIconModule.forChild(icons),
+    NzIconModule,
     NzDropDownModule,
     NzButtonModule,
     NzPopoverModule,
@@ -54,5 +54,6 @@ const icons: IconDefinition[] = [
     ReactiveFormsModule,
   ],
   exports: [TableComponent],
+  providers: [{ provide: NZ_ICONS, useValue: icons }],
 })
 export class TableModule {}
