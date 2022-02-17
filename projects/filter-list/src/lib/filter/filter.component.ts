@@ -28,6 +28,10 @@ const DEFAULT_COLS = 6;
       ::ng-deep .expand-footer .filter-footer {
         text-align: right;
       }
+
+      ::ng-deep .filter-wrapper .ant-form-item {
+        margin: 0 !important;
+      }
     `,
   ],
 })

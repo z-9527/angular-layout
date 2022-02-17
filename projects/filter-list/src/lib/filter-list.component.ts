@@ -17,7 +17,7 @@ import { Observable, of } from 'rxjs';
   selector: 'lib-filter-list',
   template: `
     <div>
-      <div style="padding: 24px 24px 0 24px;background:#fff">
+      <div style="padding: 12px 24px;background:#fff">
         <lib-filter
           [form]="form"
           [fields]="fields"
