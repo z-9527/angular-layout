@@ -44,7 +44,7 @@ const icons: IconDefinition[] = [
     NzOutletModule,
     CommonModule,
     NzToolTipModule,
-    NzIconModule,
+    NzIconModule.forChild(icons),
     NzDropDownModule,
     NzButtonModule,
     NzPopoverModule,
@@ -54,6 +54,5 @@ const icons: IconDefinition[] = [
     ReactiveFormsModule,
   ],
   exports: [TableComponent],
-  providers: [{ provide: NZ_ICONS, useValue: icons }],
 })
 export class TableModule {}
